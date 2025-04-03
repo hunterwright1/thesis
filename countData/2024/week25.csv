@@ -1,0 +1,17 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Jun 16, 2024 12:00 AM to Sat, Jun 22, 2024 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+11:00AM - 11:59AM,0,0,0,0,1,0,0,1
+12:00PM - 12:59PM,0,89,101,0,73,65,0,328
+1:00PM - 1:59PM,0,32,46,0,39,34,0,151
+2:00PM - 2:59PM,0,40,45,0,34,37,0,156
+3:00PM - 3:59PM,0,37,38,0,26,39,0,140
+4:00PM - 4:59PM,0,59,44,0,50,45,0,198
+5:00PM - 5:59PM,0,35,53,0,44,25,0,157
+6:00PM - 6:59PM,0,39,47,0,37,38,0,161
+7:00PM - 7:59PM,0,7,10,0,11,10,0,38
+Totals:,0,338,384,0,315,293,0,1330
+"Mon, Mar 3 2025 3:02P",,,,,,,,Page: 1/1

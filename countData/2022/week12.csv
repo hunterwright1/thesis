@@ -1,0 +1,19 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Mar 20, 2022 12:00 AM to Sat, Mar 26, 2022 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,0,0,4,0,0,0,4
+10:00AM - 10:59AM,0,86,70,63,0,0,0,219
+11:00AM - 11:59AM,0,77,62,57,0,0,0,196
+12:00PM - 12:59PM,0,61,46,45,0,0,0,152
+1:00PM - 1:59PM,0,45,35,51,0,0,0,131
+2:00PM - 2:59PM,0,54,33,38,0,0,0,125
+3:00PM - 3:59PM,0,57,37,41,0,0,0,135
+4:00PM - 4:59PM,0,65,40,40,0,0,0,145
+5:00PM - 5:59PM,0,74,39,69,0,0,0,182
+6:00PM - 6:59PM,0,73,65,66,0,0,0,204
+7:00PM - 7:59PM,0,18,16,16,0,0,0,50
+Totals:,0,610,443,490,0,0,0,1543
+"Wed, Feb 26 2025 4:18P",,,,,,,,Page: 1/1

@@ -1,0 +1,36 @@
+Usage By Hour And Day Grouped By Membership,,,,,,,,
+Parameters,,,,,,,,
+"Mon, Feb 22, 2021 12:00 AM to Sun, Feb 28, 2021 11:59 PM",,,,,,,,
+"Readers: Turnstile 1 Barcode - Facility: Control Desk - Main Access, Turnstile 2 Barcode - Facility: Control Desk - Main Access, Turnstile 3 Barcode - Facility: Control Desk - Main Access, Turnstile 4 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 6 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode  - Facility: Control Desk - Main Access, Turnstile 7 HKII - Facility: Control Desk - Main Access, Turnstile 8 Barcode - Facility: Control Desk - Main Access, Turnstile 8 Barcode  - Facility: Control Desk - Main Access, Turnstile 8 HKII - Facility: Control Desk - Main Access, Welcome Desk 2 - Access - Facility: Welcome Desk, Barcode 9 - Facility: Main Equipment Issue (DELETED), Barcode 9 - Facility: Main Equipment Issue (DELETED), Turnstile 1 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII-copy - Facility: Control Desk - Main Access (DELETED), Turnstile 2 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 2 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 3 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 3 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 4 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 4 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 7 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 8 - Facility: Control Desk - Main Access (DELETED), Turnstile 8 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 9 Barcode  - Facility: Main Equipment Issue (DELETED)",,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Memberships: All Memberships,,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+Membership Type: Current Student,,,,,,,,
+7:00AM - 7:59AM,0,29,28,25,30,0,0,112
+8:00AM - 8:59AM,0,39,24,34,27,0,0,124
+9:00AM - 9:59AM,0,44,51,53,44,11,0,203
+10:00AM - 10:59AM,0,37,64,35,65,0,0,201
+11:00AM - 11:59AM,0,34,38,39,38,0,0,149
+12:00PM - 12:59PM,0,28,49,27,57,0,0,161
+1:00PM - 1:59PM,0,30,35,25,31,0,0,121
+2:00PM - 2:59PM,0,44,34,47,34,0,0,159
+3:00PM - 3:59PM,0,41,56,45,51,0,0,193
+4:00PM - 4:59PM,0,44,31,42,36,0,0,153
+5:00PM - 5:59PM,0,10,16,3,12,0,0,41
+6:00PM - 6:59PM,0,0,1,0,2,0,0,3
+Membership Totals:,0,380,427,375,427,11,0,1620
+Membership Type: PE & Rec Staff,,,,,,,,
+8:00AM - 8:59AM,0,0,1,0,0,0,0,1
+9:00AM - 9:59AM,0,0,0,0,1,0,0,1
+11:00AM - 11:59AM,0,1,0,1,0,0,0,2
+12:00PM - 12:59PM,0,0,1,0,0,0,0,1
+2:00PM - 2:59PM,0,0,0,0,1,0,0,1
+3:00PM - 3:59PM,0,0,1,0,0,0,0,1
+4:00PM - 4:59PM,0,0,1,0,1,0,0,2
+Membership Totals:,0,1,4,1,3,0,0,9
+Membership Type: Winter 2021 - Faculty/Staff GX Turnstile Access,,,,,,,,
+11:00AM - 11:59AM,0,1,2,1,2,0,0,6
+3:00PM - 3:59PM,0,0,1,0,0,0,0,1
+Membership Totals:,0,1,3,1,2,0,0,7
+Totals:,0,382,434,377,432,11,0,1636
+"Mon, Feb 10 2025 10:21A",,,,,,,,Page: 1/1

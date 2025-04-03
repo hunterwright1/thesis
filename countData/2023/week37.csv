@@ -1,0 +1,19 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Sep 10, 2023 12:00 AM to Sat, Sep 16, 2023 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,1,0,0,0,0,0,1
+10:00AM - 10:59AM,0,163,129,133,143,164,0,732
+11:00AM - 11:59AM,0,100,92,111,100,117,0,520
+12:00PM - 12:59PM,0,93,87,91,88,97,0,456
+1:00PM - 1:59PM,0,67,66,71,64,82,0,350
+2:00PM - 2:59PM,0,56,55,63,55,69,0,298
+3:00PM - 3:59PM,0,80,77,80,101,64,0,402
+4:00PM - 4:59PM,0,96,82,122,102,109,0,511
+5:00PM - 5:59PM,0,106,119,145,123,110,0,603
+6:00PM - 6:59PM,0,84,91,97,84,67,0,423
+7:00PM - 7:59PM,0,6,27,28,23,19,0,103
+Totals:,0,852,825,941,883,898,0,4399
+"Mon, Mar 3 2025 2:43P",,,,,,,,Page: 1/1

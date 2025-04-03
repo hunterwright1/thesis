@@ -1,0 +1,14 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Sep 13, 2020 12:00 AM to Sat, Sep 19, 2020 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,0,3,0,0,0,0,3
+10:00AM - 10:59AM,0,0,0,7,0,1,0,8
+12:00PM - 12:59PM,0,0,0,1,0,0,0,1
+2:00PM - 2:59PM,0,0,0,0,7,0,0,7
+3:00PM - 3:59PM,0,0,0,0,25,1,0,26
+4:00PM - 4:59PM,0,0,2,3,5,0,0,10
+Totals:,0,0,5,11,37,2,0,55
+"Wed, Feb 26 2025 3:37P",,,,,,,,Page: 1/1

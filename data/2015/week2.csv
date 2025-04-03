@@ -1,0 +1,114 @@
+Usage By Hour And Day Grouped By Membership,,,,,,,,
+Parameters,,,,,,,,
+"Mon, Jan 12, 2015 12:00 AM to Sun, Jan 18, 2015 11:59 PM",,,,,,,,
+"Readers: Turnstile 1 Barcode - Facility: Control Desk - Main Access, Turnstile 2 Barcode - Facility: Control Desk - Main Access, Turnstile 3 Barcode - Facility: Control Desk - Main Access, Turnstile 4 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 6 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode  - Facility: Control Desk - Main Access, Turnstile 7 HKII - Facility: Control Desk - Main Access, Turnstile 8 Barcode - Facility: Control Desk - Main Access, Turnstile 8 Barcode  - Facility: Control Desk - Main Access, Turnstile 8 HKII - Facility: Control Desk - Main Access, Welcome Desk 2 - Access - Facility: Welcome Desk, Barcode 9 - Facility: Main Equipment Issue (DELETED), Barcode 9 - Facility: Main Equipment Issue (DELETED), Turnstile 1 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII-copy - Facility: Control Desk - Main Access (DELETED), Turnstile 2 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 2 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 3 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 3 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 4 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 4 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 7 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 8 - Facility: Control Desk - Main Access (DELETED), Turnstile 8 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 9 Barcode  - Facility: Main Equipment Issue (DELETED)",,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Memberships: Faculty/Staff,,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+Membership Type: No Membership,,,,,,,,
+8:00AM - 8:59AM,0,0,1,0,3,2,0,6
+9:00AM - 9:59AM,0,1,0,0,0,1,0,2
+10:00AM - 10:59AM,1,0,0,0,0,0,0,1
+11:00AM - 11:59AM,1,1,0,0,3,1,2,8
+12:00PM - 12:59PM,0,2,0,1,1,4,0,8
+1:00PM - 1:59PM,1,1,0,0,0,0,3,5
+2:00PM - 2:59PM,0,0,0,0,1,1,0,2
+3:00PM - 3:59PM,0,0,0,1,0,2,1,4
+4:00PM - 4:59PM,0,0,2,2,1,0,0,5
+5:00PM - 5:59PM,0,0,1,1,0,2,0,4
+6:00PM - 6:59PM,0,0,1,0,2,0,0,3
+7:00PM - 7:59PM,0,0,2,3,0,0,0,5
+8:00PM - 8:59PM,0,0,0,1,2,0,0,3
+9:00PM - 9:59PM,0,0,0,0,1,0,0,1
+10:00PM - 10:59PM,0,0,1,0,0,0,0,1
+Membership Totals:,3,5,8,9,14,13,6,58
+Membership Type: Alumni Members,,,,,,,,
+6:00AM - 6:59AM,0,5,0,5,4,1,0,15
+7:00AM - 7:59AM,0,0,0,0,0,5,0,5
+8:00AM - 8:59AM,0,1,0,0,0,2,0,3
+9:00AM - 9:59AM,0,2,2,3,1,1,0,9
+10:00AM - 10:59AM,4,2,1,3,1,4,0,15
+11:00AM - 11:59AM,5,9,3,4,0,6,1,28
+12:00PM - 12:59PM,1,1,5,1,2,1,3,14
+1:00PM - 1:59PM,0,2,1,3,1,0,2,9
+2:00PM - 2:59PM,0,3,0,0,2,0,2,7
+3:00PM - 3:59PM,1,0,2,1,0,3,0,7
+4:00PM - 4:59PM,0,0,2,10,4,1,2,19
+5:00PM - 5:59PM,6,1,1,1,2,3,1,15
+6:00PM - 6:59PM,0,0,3,4,3,3,1,14
+7:00PM - 7:59PM,2,0,5,0,2,2,2,13
+8:00PM - 8:59PM,2,0,3,1,4,1,1,12
+9:00PM - 9:59PM,1,1,0,0,2,0,2,6
+10:00PM - 10:59PM,0,0,0,1,0,0,1,2
+11:00PM - 11:59PM,0,0,0,2,0,1,1,4
+Membership Totals:,22,27,28,39,28,34,19,197
+Membership Type: Class MWF,,,,,,,,
+5:00PM - 5:59PM,0,0,0,1,0,0,0,1
+Membership Totals:,0,0,0,1,0,0,0,1
+Membership Type: Class TU/TR,,,,,,,,
+10:00AM - 10:59AM,0,0,0,0,1,0,0,1
+Membership Totals:,0,0,0,0,1,0,0,1
+Membership Type: Community Members,,,,,,,,
+6:00AM - 6:59AM,0,2,2,0,1,0,0,5
+7:00AM - 7:59AM,0,1,0,0,1,1,0,3
+8:00AM - 8:59AM,0,0,0,1,0,2,0,3
+9:00AM - 9:59AM,0,0,0,2,4,0,0,6
+10:00AM - 10:59AM,1,2,0,0,2,3,1,9
+11:00AM - 11:59AM,1,4,1,4,1,0,3,14
+12:00PM - 12:59PM,2,2,2,2,1,7,4,20
+1:00PM - 1:59PM,1,4,2,0,1,4,2,14
+2:00PM - 2:59PM,4,4,4,3,0,6,1,22
+3:00PM - 3:59PM,1,3,3,5,3,7,4,26
+4:00PM - 4:59PM,3,0,5,6,7,14,2,37
+5:00PM - 5:59PM,3,0,2,4,6,4,4,23
+6:00PM - 6:59PM,2,0,8,8,9,8,2,37
+7:00PM - 7:59PM,5,0,6,3,2,3,3,22
+8:00PM - 8:59PM,3,0,6,2,6,1,0,18
+9:00PM - 9:59PM,0,0,1,1,1,1,3,7
+10:00PM - 10:59PM,0,1,0,2,0,0,0,3
+11:00PM - 11:59PM,0,0,0,1,0,0,0,1
+Membership Totals:,26,23,42,44,45,61,29,270
+Membership Type: Current Student,,,,,,,,
+5:00AM - 5:59AM,0,0,0,1,14,0,0,15
+6:00AM - 6:59AM,0,211,78,196,161,105,0,751
+7:00AM - 7:59AM,0,135,58,150,77,73,0,493
+8:00AM - 8:59AM,0,279,160,240,194,100,0,973
+9:00AM - 9:59AM,1,343,206,349,267,173,0,1339
+10:00AM - 10:59AM,171,301,261,277,266,211,192,1679
+11:00AM - 11:59AM,188,369,321,291,338,264,160,1931
+12:00PM - 12:59PM,111,412,278,338,280,224,176,1819
+1:00PM - 1:59PM,130,463,296,400,356,214,231,2090
+2:00PM - 2:59PM,124,229,283,393,260,331,223,1843
+3:00PM - 3:59PM,213,3,333,394,346,365,293,1947
+4:00PM - 4:59PM,259,5,386,363,393,348,245,1999
+5:00PM - 5:59PM,224,1,470,464,497,316,248,2220
+6:00PM - 6:59PM,217,0,517,495,451,297,229,2206
+7:00PM - 7:59PM,219,0,486,435,398,176,139,1853
+8:00PM - 8:59PM,146,5,435,431,351,120,126,1614
+9:00PM - 9:59PM,108,114,264,222,223,111,100,1142
+10:00PM - 10:59PM,54,96,133,137,154,56,68,698
+11:00PM - 11:59PM,9,14,23,30,20,12,11,119
+Membership Totals:,2174,2980,4988,5606,5046,3496,2441,26731
+Membership Type: Faculty & Staff,,,,,,,,
+8:00AM - 8:59AM,0,0,0,0,0,1,0,1
+4:00PM - 4:59PM,1,0,6,0,0,0,0,7
+Membership Totals:,1,0,6,0,0,1,0,8
+Membership Type: PE & Rec Staff,,,,,,,,
+6:00AM - 6:59AM,0,0,0,0,0,1,0,1
+7:00AM - 7:59AM,0,0,0,1,0,0,0,1
+8:00AM - 8:59AM,0,5,0,2,1,0,0,8
+9:00AM - 9:59AM,0,1,9,3,3,1,0,17
+10:00AM - 10:59AM,0,4,10,0,1,2,0,17
+11:00AM - 11:59AM,0,3,4,2,6,1,0,16
+12:00PM - 12:59PM,1,3,1,6,2,2,0,15
+1:00PM - 1:59PM,0,1,5,5,1,2,1,15
+2:00PM - 2:59PM,0,0,3,0,2,0,0,5
+3:00PM - 3:59PM,0,0,5,0,0,0,0,5
+4:00PM - 4:59PM,0,0,3,2,2,1,0,8
+5:00PM - 5:59PM,0,0,0,4,0,2,0,6
+7:00PM - 7:59PM,0,0,1,0,0,0,0,1
+9:00PM - 9:59PM,0,4,0,0,0,0,0,4
+10:00PM - 10:59PM,0,1,0,0,0,0,0,1
+Membership Totals:,1,22,41,25,18,12,1,120
+Totals:,2227,3057,5113,5724,5152,3617,2496,27386
+"Mon, Feb 3 2025 11:03A",,,,,,,,Page: 1/1

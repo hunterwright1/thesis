@@ -1,0 +1,20 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Jan 24, 2021 12:00 AM to Sat, Jan 30, 2021 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+7:00AM - 7:59AM,0,31,23,25,26,15,0,120
+8:00AM - 8:59AM,0,28,26,31,24,25,0,134
+9:00AM - 9:59AM,15,40,37,46,41,32,0,211
+10:00AM - 10:59AM,24,38,50,22,64,33,29,260
+11:00AM - 11:59AM,18,26,37,33,36,22,30,202
+12:00PM - 12:59PM,20,36,41,28,52,32,30,239
+1:00PM - 1:59PM,18,22,26,23,28,35,27,179
+2:00PM - 2:59PM,17,38,32,35,35,28,18,203
+3:00PM - 3:59PM,13,46,38,47,44,32,17,237
+4:00PM - 4:59PM,12,29,37,20,37,25,26,186
+5:00PM - 5:59PM,5,4,19,6,21,7,5,67
+6:00PM - 6:59PM,0,0,0,0,1,0,0,1
+Totals:,142,338,366,316,409,286,182,2039
+"Wed, Feb 26 2025 3:50P",,,,,,,,Page: 1/1
