@@ -1,0 +1,100 @@
+Usage By Hour And Day Grouped By Membership,,,,,,,,
+Parameters,,,,,,,,
+"Mon, Jun 27, 2016 12:00 AM to Sun, Jul 3, 2016 11:59 PM",,,,,,,,
+"Readers: Turnstile 1 Barcode - Facility: Control Desk - Main Access, Turnstile 2 Barcode - Facility: Control Desk - Main Access, Turnstile 3 Barcode - Facility: Control Desk - Main Access, Turnstile 4 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 6 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode  - Facility: Control Desk - Main Access, Turnstile 7 HKII - Facility: Control Desk - Main Access, Turnstile 8 Barcode - Facility: Control Desk - Main Access, Turnstile 8 Barcode  - Facility: Control Desk - Main Access, Turnstile 8 HKII - Facility: Control Desk - Main Access, Welcome Desk 2 - Access - Facility: Welcome Desk, Barcode 9 - Facility: Main Equipment Issue (DELETED), Barcode 9 - Facility: Main Equipment Issue (DELETED), Turnstile 1 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII-copy - Facility: Control Desk - Main Access (DELETED), Turnstile 2 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 2 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 3 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 3 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 4 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 4 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 7 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 8 - Facility: Control Desk - Main Access (DELETED), Turnstile 8 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 9 Barcode  - Facility: Main Equipment Issue (DELETED)",,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Memberships: Faculty/Staff,,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+Membership Type: No Membership,,,,,,,,
+6:00AM - 6:59AM,0,0,2,0,0,0,0,2
+7:00AM - 7:59AM,0,1,0,0,0,0,0,1
+8:00AM - 8:59AM,0,2,0,2,3,3,0,10
+9:00AM - 9:59AM,0,0,0,1,1,2,0,4
+10:00AM - 10:59AM,0,2,0,1,2,0,0,5
+11:00AM - 11:59AM,0,1,6,4,1,5,0,17
+12:00PM - 12:59PM,1,3,2,0,0,0,0,6
+1:00PM - 1:59PM,1,1,0,2,0,2,1,7
+2:00PM - 2:59PM,0,2,3,0,0,2,4,11
+3:00PM - 3:59PM,1,1,2,1,2,1,0,8
+4:00PM - 4:59PM,0,1,0,2,1,0,0,4
+5:00PM - 5:59PM,1,2,2,0,1,1,0,7
+6:00PM - 6:59PM,2,1,1,4,0,1,0,9
+7:00PM - 7:59PM,0,0,0,0,1,0,0,1
+Membership Totals:,6,17,18,17,12,17,5,92
+Membership Type: Alumni Members,,,,,,,,
+6:00AM - 6:59AM,0,2,0,0,0,0,0,2
+7:00AM - 7:59AM,0,1,0,1,0,0,0,2
+8:00AM - 8:59AM,0,1,1,1,0,0,0,3
+9:00AM - 9:59AM,0,1,2,3,1,5,0,12
+10:00AM - 10:59AM,0,5,3,2,0,5,0,15
+11:00AM - 11:59AM,0,2,2,1,0,3,0,8
+12:00PM - 12:59PM,3,2,0,1,1,3,1,11
+1:00PM - 1:59PM,2,1,2,1,0,1,0,7
+2:00PM - 2:59PM,1,2,1,1,2,6,1,14
+3:00PM - 3:59PM,3,0,10,3,2,0,2,20
+4:00PM - 4:59PM,3,6,3,3,2,4,2,23
+5:00PM - 5:59PM,0,4,8,7,4,2,0,25
+6:00PM - 6:59PM,3,7,6,9,8,5,1,39
+7:00PM - 7:59PM,1,2,2,2,2,3,1,13
+Membership Totals:,16,36,40,35,22,37,8,194
+Membership Type: Community Members,,,,,,,,
+6:00AM - 6:59AM,0,4,4,4,3,2,0,17
+7:00AM - 7:59AM,0,0,1,1,0,0,0,2
+8:00AM - 8:59AM,0,0,1,1,2,1,0,5
+9:00AM - 9:59AM,0,2,0,3,1,4,0,10
+10:00AM - 10:59AM,0,2,1,1,1,3,0,8
+11:00AM - 11:59AM,0,2,1,0,0,2,0,5
+12:00PM - 12:59PM,7,0,6,2,1,0,1,17
+1:00PM - 1:59PM,1,5,2,5,1,1,3,18
+2:00PM - 2:59PM,4,2,4,4,5,2,1,22
+3:00PM - 3:59PM,1,3,3,1,2,4,3,17
+4:00PM - 4:59PM,1,6,2,3,3,2,0,17
+5:00PM - 5:59PM,2,3,6,7,5,3,2,28
+6:00PM - 6:59PM,0,6,3,4,3,6,0,22
+7:00PM - 7:59PM,1,3,1,1,0,3,1,10
+Membership Totals:,17,38,35,37,27,33,11,198
+Membership Type: Current Student,,,,,,,,
+6:00AM - 6:59AM,0,13,21,20,11,7,0,72
+7:00AM - 7:59AM,0,12,19,10,8,7,0,56
+8:00AM - 8:59AM,0,50,54,53,42,53,0,252
+9:00AM - 9:59AM,0,26,22,43,30,37,0,158
+10:00AM - 10:59AM,0,41,35,28,33,41,0,178
+11:00AM - 11:59AM,0,88,87,69,65,50,0,359
+12:00PM - 12:59PM,66,82,76,65,53,47,45,434
+1:00PM - 1:59PM,27,63,74,56,49,58,39,366
+2:00PM - 2:59PM,53,56,74,43,50,57,48,381
+3:00PM - 3:59PM,39,78,103,82,100,74,35,511
+4:00PM - 4:59PM,36,101,144,80,117,76,39,593
+5:00PM - 5:59PM,34,134,114,124,102,71,48,627
+6:00PM - 6:59PM,49,145,105,108,79,77,64,627
+7:00PM - 7:59PM,12,39,25,22,20,12,10,140
+Membership Totals:,316,928,953,803,759,667,328,4754
+Membership Type: Current Student 1,,,,,,,,
+8:00AM - 8:59AM,0,0,1,0,0,1,0,2
+11:00AM - 11:59AM,0,0,0,1,0,0,0,1
+12:00PM - 12:59PM,1,0,0,0,0,0,0,1
+1:00PM - 1:59PM,0,0,0,1,0,1,0,2
+2:00PM - 2:59PM,0,0,0,0,1,0,0,1
+3:00PM - 3:59PM,1,0,0,1,0,0,0,2
+4:00PM - 4:59PM,0,0,0,0,0,1,0,1
+5:00PM - 5:59PM,0,1,0,0,1,0,0,2
+6:00PM - 6:59PM,0,0,0,0,0,1,0,1
+Membership Totals:,2,1,1,3,2,4,0,13
+Membership Type: PE & Rec Staff,,,,,,,,
+6:00AM - 6:59AM,0,2,0,1,0,0,0,3
+7:00AM - 7:59AM,0,1,1,1,1,0,0,4
+8:00AM - 8:59AM,0,3,2,1,2,1,0,9
+9:00AM - 9:59AM,0,1,1,2,1,0,0,5
+10:00AM - 10:59AM,0,2,1,0,0,0,0,3
+11:00AM - 11:59AM,0,1,0,1,0,4,0,6
+12:00PM - 12:59PM,3,1,1,1,0,0,3,9
+1:00PM - 1:59PM,0,0,0,1,1,0,1,3
+2:00PM - 2:59PM,0,2,0,0,1,0,0,3
+3:00PM - 3:59PM,0,2,3,0,1,1,0,7
+4:00PM - 4:59PM,0,3,1,0,0,1,0,5
+5:00PM - 5:59PM,1,1,1,0,1,0,0,4
+6:00PM - 6:59PM,0,2,0,0,0,1,1,4
+7:00PM - 7:59PM,2,0,0,2,0,0,0,4
+Membership Totals:,6,21,11,10,8,8,5,69
+Totals:,363,1041,1058,905,830,766,357,5320
+"Mon, Feb 3 2025 10:14A",,,,,,,,Page: 1/1

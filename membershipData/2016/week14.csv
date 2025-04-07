@@ -1,0 +1,97 @@
+Usage By Hour And Day Grouped By Membership,,,,,,,,
+Parameters,,,,,,,,
+"Mon, Apr 4, 2016 12:00 AM to Sun, Apr 10, 2016 11:59 PM",,,,,,,,
+"Readers: Turnstile 1 Barcode - Facility: Control Desk - Main Access, Turnstile 2 Barcode - Facility: Control Desk - Main Access, Turnstile 3 Barcode - Facility: Control Desk - Main Access, Turnstile 4 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 6 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode  - Facility: Control Desk - Main Access, Turnstile 7 HKII - Facility: Control Desk - Main Access, Turnstile 8 Barcode - Facility: Control Desk - Main Access, Turnstile 8 Barcode  - Facility: Control Desk - Main Access, Turnstile 8 HKII - Facility: Control Desk - Main Access, Welcome Desk 2 - Access - Facility: Welcome Desk, Barcode 9 - Facility: Main Equipment Issue (DELETED), Barcode 9 - Facility: Main Equipment Issue (DELETED), Turnstile 1 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII-copy - Facility: Control Desk - Main Access (DELETED), Turnstile 2 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 2 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 3 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 3 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 4 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 4 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 7 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 8 - Facility: Control Desk - Main Access (DELETED), Turnstile 8 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 9 Barcode  - Facility: Main Equipment Issue (DELETED)",,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Memberships: Faculty/Staff,,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+Membership Type: No Membership,,,,,,,,
+6:00AM - 6:59AM,0,1,1,3,0,0,0,5
+7:00AM - 7:59AM,0,0,1,0,0,1,0,2
+8:00AM - 8:59AM,0,0,2,0,1,2,0,5
+9:00AM - 9:59AM,0,1,1,2,1,0,0,5
+10:00AM - 10:59AM,2,1,0,0,1,1,1,6
+11:00AM - 11:59AM,0,0,2,3,1,1,0,7
+12:00PM - 12:59PM,4,0,0,0,0,0,0,4
+2:00PM - 2:59PM,0,0,0,1,0,0,2,3
+4:00PM - 4:59PM,1,0,1,0,2,0,0,4
+5:00PM - 5:59PM,1,0,0,0,1,0,0,2
+6:00PM - 6:59PM,0,3,0,0,0,1,0,4
+7:00PM - 7:59PM,0,0,0,0,1,0,1,2
+9:00PM - 9:59PM,0,0,0,0,1,0,0,1
+Membership Totals:,8,6,8,9,9,6,4,50
+Membership Type: Alumni Members,,,,,,,,
+6:00AM - 6:59AM,0,1,3,1,2,2,0,9
+7:00AM - 7:59AM,0,2,1,1,4,5,0,13
+8:00AM - 8:59AM,0,0,3,1,2,0,0,6
+9:00AM - 9:59AM,0,2,2,1,0,3,0,8
+10:00AM - 10:59AM,10,4,3,5,3,3,3,31
+11:00AM - 11:59AM,0,1,4,4,6,2,4,21
+12:00PM - 12:59PM,2,2,3,2,1,3,1,14
+1:00PM - 1:59PM,3,0,4,1,1,6,2,17
+2:00PM - 2:59PM,4,4,2,2,1,2,2,17
+3:00PM - 3:59PM,5,4,4,6,5,1,0,25
+4:00PM - 4:59PM,4,7,3,4,3,3,0,24
+5:00PM - 5:59PM,5,12,7,6,5,3,1,39
+6:00PM - 6:59PM,9,7,12,9,10,4,4,55
+7:00PM - 7:59PM,4,4,3,3,6,7,1,28
+8:00PM - 8:59PM,1,3,5,4,1,1,3,18
+9:00PM - 9:59PM,0,3,2,1,0,0,0,6
+10:00PM - 10:59PM,0,0,3,0,5,1,1,10
+11:00PM - 11:59PM,0,0,0,0,0,1,0,1
+Membership Totals:,47,56,64,51,55,47,22,342
+Membership Type: Community Members,,,,,,,,
+6:00AM - 6:59AM,0,4,1,2,1,3,0,11
+7:00AM - 7:59AM,0,2,0,0,0,0,0,2
+8:00AM - 8:59AM,0,3,0,2,2,0,0,7
+9:00AM - 9:59AM,0,3,3,2,2,1,0,11
+10:00AM - 10:59AM,4,4,1,2,0,2,1,14
+11:00AM - 11:59AM,1,1,1,3,3,5,2,16
+12:00PM - 12:59PM,2,0,0,2,6,2,2,14
+1:00PM - 1:59PM,1,2,3,2,6,2,1,17
+2:00PM - 2:59PM,2,2,7,3,3,4,0,21
+3:00PM - 3:59PM,1,1,6,3,2,2,2,17
+4:00PM - 4:59PM,6,6,6,10,5,4,1,38
+5:00PM - 5:59PM,0,9,8,4,7,2,2,32
+6:00PM - 6:59PM,2,7,4,12,5,6,3,39
+7:00PM - 7:59PM,0,3,1,4,1,4,2,15
+8:00PM - 8:59PM,7,10,9,3,0,0,0,29
+9:00PM - 9:59PM,1,2,7,3,5,0,1,19
+10:00PM - 10:59PM,0,3,0,3,1,0,3,10
+Membership Totals:,27,62,57,60,49,37,20,312
+Membership Type: Current Student,,,,,,,,
+5:00AM - 5:59AM,0,0,0,4,0,0,0,4
+6:00AM - 6:59AM,0,70,87,95,49,47,0,348
+7:00AM - 7:59AM,0,122,77,137,60,44,0,440
+8:00AM - 8:59AM,0,226,245,209,233,113,0,1026
+9:00AM - 9:59AM,0,425,299,424,337,159,0,1644
+10:00AM - 10:59AM,156,331,274,351,264,245,177,1798
+11:00AM - 11:59AM,142,362,372,385,375,252,152,2040
+12:00PM - 12:59PM,129,335,336,342,324,210,131,1807
+1:00PM - 1:59PM,87,407,409,353,340,202,170,1968
+2:00PM - 2:59PM,118,299,292,269,225,196,179,1578
+3:00PM - 3:59PM,160,450,444,389,260,193,154,2050
+4:00PM - 4:59PM,184,327,456,336,255,219,166,1943
+5:00PM - 5:59PM,188,423,440,377,302,198,129,2057
+6:00PM - 6:59PM,206,358,416,392,287,176,113,1948
+7:00PM - 7:59PM,220,293,397,297,206,146,98,1657
+8:00PM - 8:59PM,169,314,332,263,226,144,111,1559
+9:00PM - 9:59PM,171,324,295,250,195,68,79,1382
+10:00PM - 10:59PM,85,133,141,105,131,48,53,696
+11:00PM - 11:59PM,6,19,10,14,10,14,10,83
+Membership Totals:,2021,5218,5322,4992,4079,2674,1722,26028
+Membership Type: Current Student 1,,,,,,,,
+8:00PM - 8:59PM,0,0,0,1,0,0,0,1
+Membership Totals:,0,0,0,1,0,0,0,1
+Membership Type: PE & Rec Staff,,,,,,,,
+9:00AM - 9:59AM,0,2,1,1,1,0,0,5
+10:00AM - 10:59AM,0,0,1,0,1,0,0,2
+11:00AM - 11:59AM,0,0,0,3,0,0,0,3
+12:00PM - 12:59PM,0,0,1,0,0,0,0,1
+1:00PM - 1:59PM,1,2,1,3,0,0,0,7
+2:00PM - 2:59PM,1,3,0,0,0,0,0,4
+4:00PM - 4:59PM,0,1,0,0,0,0,0,1
+7:00PM - 7:59PM,0,0,0,0,1,0,0,1
+Membership Totals:,2,8,4,7,3,0,0,24
+Totals:,2105,5350,5455,5120,4195,2764,1768,26757
+"Mon, Feb 3 2025 10:02A",,,,,,,,Page: 1/1

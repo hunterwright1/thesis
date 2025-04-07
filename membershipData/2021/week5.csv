@@ -1,0 +1,54 @@
+Usage By Hour And Day Grouped By Membership,,,,,,,,
+Parameters,,,,,,,,
+"Mon, Apr 26, 2021 12:00 AM to Sun, May 2, 2021 11:59 PM",,,,,,,,
+"Readers: Turnstile 1 Barcode - Facility: Control Desk - Main Access, Turnstile 2 Barcode - Facility: Control Desk - Main Access, Turnstile 3 Barcode - Facility: Control Desk - Main Access, Turnstile 4 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 Barcode - Facility: Control Desk - Main Access, Turnstile 5 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 6 HKII - Facility: Control Desk - Main Access, Turnstile 6 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode - Facility: Control Desk - Main Access, Turnstile 7 Barcode  - Facility: Control Desk - Main Access, Turnstile 7 HKII - Facility: Control Desk - Main Access, Turnstile 8 Barcode - Facility: Control Desk - Main Access, Turnstile 8 Barcode  - Facility: Control Desk - Main Access, Turnstile 8 HKII - Facility: Control Desk - Main Access, Welcome Desk 2 - Access - Facility: Welcome Desk, Barcode 9 - Facility: Main Equipment Issue (DELETED), Barcode 9 - Facility: Main Equipment Issue (DELETED), Turnstile 1 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 1 HKII-copy - Facility: Control Desk - Main Access (DELETED), Turnstile 2 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 2 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 3 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 3 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 4 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 4 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 5 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 Barcode - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 6 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 7 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 8 - Facility: Control Desk - Main Access (DELETED), Turnstile 8 HKII - Facility: Control Desk - Main Access (DELETED), Turnstile 9 Barcode  - Facility: Main Equipment Issue (DELETED)",,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Memberships: All Memberships,,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+Membership Type: Club Sports - Wushu - Limited Hours,,,,,,,,
+5:00PM - 5:59PM,0,1,0,2,0,0,0,3
+6:00PM - 6:59PM,0,1,0,0,0,0,0,1
+Membership Totals:,0,2,0,2,0,0,0,4
+Membership Type: Current Student,,,,,,,,
+6:00AM - 6:59AM,0,59,66,60,54,0,0,239
+7:00AM - 7:59AM,0,103,70,75,62,0,0,310
+8:00AM - 8:59AM,0,75,75,77,64,0,0,291
+9:00AM - 9:59AM,11,101,114,92,109,1,0,428
+10:00AM - 10:59AM,20,97,116,68,107,2,36,446
+11:00AM - 11:59AM,38,88,79,88,78,21,34,426
+12:00PM - 12:59PM,35,128,136,108,108,31,22,568
+1:00PM - 1:59PM,26,114,112,92,95,24,30,493
+2:00PM - 2:59PM,22,86,98,82,88,42,28,446
+3:00PM - 3:59PM,28,101,101,91,74,36,25,456
+4:00PM - 4:59PM,31,133,114,115,104,28,25,550
+5:00PM - 5:59PM,13,153,152,150,131,40,14,653
+6:00PM - 6:59PM,0,117,138,131,110,23,0,519
+7:00PM - 7:59PM,0,23,19,20,8,4,0,74
+Membership Totals:,224,1378,1390,1249,1192,252,214,5899
+Membership Type: PE & Rec Staff,,,,,,,,
+8:00AM - 8:59AM,0,1,0,0,0,0,0,1
+9:00AM - 9:59AM,0,1,0,0,0,0,0,1
+10:00AM - 10:59AM,0,0,2,0,2,0,0,4
+11:00AM - 11:59AM,0,1,0,1,0,0,0,2
+12:00PM - 12:59PM,0,0,1,0,0,0,0,1
+1:00PM - 1:59PM,0,0,0,1,0,0,0,1
+3:00PM - 3:59PM,0,1,0,0,1,1,0,3
+5:00PM - 5:59PM,0,1,0,0,0,0,0,1
+6:00PM - 6:59PM,0,0,0,1,1,0,0,2
+Membership Totals:,0,5,3,3,4,1,0,16
+Membership Type: Spring 2021 - Faculty/Staff GX Turnstile Access,,,,,,,,
+8:00AM - 8:59AM,0,1,0,0,0,0,0,1
+11:00AM - 11:59AM,0,0,2,1,2,1,0,6
+3:00PM - 3:59PM,0,0,1,0,0,0,0,1
+Membership Totals:,0,1,3,1,2,1,0,8
+Membership Type: Student Off Term,,,,,,,,
+10:00AM - 10:59AM,0,1,1,1,1,0,1,5
+11:00AM - 11:59AM,0,0,2,0,1,0,0,3
+12:00PM - 12:59PM,0,0,1,0,0,0,0,1
+1:00PM - 1:59PM,0,0,1,0,0,0,0,1
+2:00PM - 2:59PM,1,0,0,0,0,0,0,1
+5:00PM - 5:59PM,0,1,0,0,0,0,0,1
+6:00PM - 6:59PM,0,1,1,2,3,0,0,7
+Membership Totals:,1,3,6,3,5,0,1,19
+Totals:,225,1389,1402,1258,1203,254,215,5946
+"Mon, Feb 10 2025 10:26A",,,,,,,,Page: 1/1

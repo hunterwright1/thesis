@@ -1,8 +1,10 @@
 ---
-title: "Thesis Data Prep"
+title: "dataCleaning2"
 author: "Hunter Wright"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -11,12 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load packages}
 library(pacman)
-p_load(dplyr, broom, ggplot2, tidyverse, readr, purrr, tidyr)
+p_load(dplyr, broom, ggplot2, tidyverse, readr, purrr, tidyr, gtools)
 
 ```
 
-```{r clean data example}
-jan15w1_dirty <- read_csv("data/2015/week1.csv")
+```{r clean data example, eval=FALSE, include=FALSE}
+jan15w1_dirty <- read_csv("membershipData/2015/week1.csv")
 
 jan15w1 <- jan15w1_dirty %>%
   slice(6, 22, 40, 60, 81, 89, 98, 116, 117) %>%
@@ -37,11 +39,11 @@ jan15w1 <- as.data.frame(t(jan15w1))
 
 print(jan15w1)
 ```
-```{r import 2015 dataset, include=FALSE}
-library(gtools)
+```{r import 2015 dataset, eval=FALSE, include=FALSE}
+
 
 # Set the folder path (update this to your actual folder)
-folder_path <- "data/2015"
+folder_path <- "membershipData/2015"
 
 # List CSV files in natural order
 files2015 <- mixedsort(list.files(path = folder_path, pattern = "\\.csv$", full.names = TRUE))
@@ -50,7 +52,7 @@ files2015 <- mixedsort(list.files(path = folder_path, pattern = "\\.csv$", full.
 year2015 <- files2015 %>% 
   map_dfr(read_csv)
 ```
-```{r remove junk rows}
+```{r remove junk rows, eval=FALSE, include=FALSE}
 
 df2015 <- as.data.frame(year2015) %>% #convert to data frame
   rename("column1" = "Usage By Hour And Day Grouped By Membership") %>%
@@ -67,20 +69,62 @@ df2015 <- as.data.frame(year2015) %>% #convert to data frame
 
 ```
 
+notes
+rank members by how valuable their time is
+dummy variable list:
+Finals Season
 
-```{r function}
+
+```{r membership function}
 
 clean <- function(file_path,
-                  expected_cols = c("Date", "No Membership Total",
-                                            "Alumni Members Total",
-                                            "Community Members Total",
-                                            "Current Student Total",
-                                            "Current Student 1 Total",
-                                            "Faculty & Staff Total",
-                                            "PE & Rec Staff Total",
-                                            "Class MWF Total",
-                                            "Class TU/TR Total",
-                                            "Club Sports - Limited Total")) {
+                  expected_cols = c("Date", 
+                       "No Membership Total",
+                       "Alumni Members Total",
+                       "Community Members Total",
+                       "Current Student Total",
+                       "Current Student 1 Total",
+                       "Faculty & Staff Total",
+                       "PE & Rec Staff Total",
+                       "Class MWF Total",
+                       "Class TU/TR Total",
+                       "Club Sports - Limited Total",
+                       "Club Sports- Limited Total",             
+                       "Guest Pass Total",                                     
+                       "Community Membership Total",                           
+                       "Club Sports- Basketball - Limited Hours Total",        
+                       "Club Sport Fencing - Limited Hours Total",             
+                       "Club Sports - Wushu - Limited Hours Total",            
+                       "Club Sports- W Water Polo- Limited Hours Total",       
+                       "Athletics - Tennis Total",                             
+                       "Club Sports - Jiu Jitsu - Limited Hours Total",        
+                       "Club Sports - Swim - Limited Hours Total",             
+                       "Faculty/Staff Total",                                  
+                       "NCU Semester Membership Total",                        
+                       "Spouse/Dependent Total",                               
+                       "Student Off Term Total",                               
+                       "NCU Total",                                            
+                       "Class MW Total",                                       
+                       "Dependent/Spouse Total",                               
+                       "Club Sports- Wrestling - Limited Hours Total",         
+                       "PE Volunteer MTWThF Total",                            
+                       "Class MTWTh Total",                                    
+                       "Club Sports - Dance - Limited Hours Total",            
+                       "PE Volunteer MW Total",                                
+                       "PE MW Total",                                          
+                       "SRC Access for IM Participants Total",                 
+                       "Spring 2021 - Faculty/Staff GX Turnstile Access Total",
+                       "Worlds 2022 Staff Membership Total",                   
+                       "Winter 2021 - Faculty/Staff GX Turnstile Access Total",
+                       "PE T/R Total",                                         
+                       "Bushnell Total",                                       
+                       "Club Sports - Kendo - Limited Hours Total",            
+                       "Courtesy Total",                                       
+                       "Club Sports - Kendo Total",                            
+                       "Bushnell Semester Membership Total",                   
+                       "Club Sports - Weightlifting - Limited Hours Total",    
+                       "Club Sports Hockey Total",                             
+                       "PE Volunteer M/W Total")) {
  
   #read in csv
   raw <- read_csv(file_path, col_names = FALSE, show_col_types = FALSE)
@@ -153,10 +197,10 @@ clean <- function(file_path,
 
 ```
 
-```{r create 2015 df}
+```{r create membership df}
 
 #create list of years
-years <- list.files("data", full.names = TRUE)
+years <- list.files("membershipData", full.names = TRUE)
 
 #combine
 membership <- map_dfr(years, function(folder) {
@@ -172,7 +216,7 @@ membership <- membership %>%
   mutate(across(-Date, ~ replace_na(., 0))) #replace NAs with 0s
 
 #remove junk columns and create other column, total column
-membership2 <- membership %>%
+membership <- membership %>%
   rename(date = Date,
          nonmembers = "No Membership Total",
          alumni = "Alumni Members Total",
@@ -222,12 +266,128 @@ membership2 <- membership %>%
          col40 = "PE Volunteer M/W Total"
          ) %>%
   mutate(other = col2 + col3 + col4 + col5  + col6  + col7  + col8  + col9  + col10 + col11 + col12 + col13 + col14 + col15 + col16 + col17 + col18 + col19 + col20 + col21 + col22 + col23 + col24 + col25 + col26 + col27 + col28 + col29 + col30 + col31 + col32 + col33 + col34 + col35 + col36 + col37 + col38 + col39 + col40,
-         total = nonmembers + alumni + community_members + students + faculty_staff + pe_staff + other) %>%
+        total = rowSums(membership[, -1])) %>%
   select(1:5, 7, 8, 48, 49)
+
+
 
 ```
 
+```{r count function}
+cleanCount <- function(file_path,
+                  expected_cols = c("Date", "5:00AM",
+                                            "6:00AM",
+                                            "7:00AM",
+                                            "8:00AM",
+                                            "9:00AM",
+                                            "10:00AM",
+                                            "11:00AM",
+                                            "12:00PM",
+                                            "1:00PM",
+                                            "2:00PM",
+                                            "3:00PM",
+                                            "4:00PM",
+                                            "5:00PM",
+                                            "6:00PM",
+                                            "7:00PM",
+                                            "8:00PM",
+                                            "9:00PM",
+                                            "10:00PM",
+                                            "11:00PM")) {
+ 
+  #read in csv
+  raw <- read_csv(file_path, col_names = FALSE, show_col_types = FALSE)
+  
+  date_range <- raw[[1]][3] #date range is in row 3 column 1
+  
+  #example: "Mon, Jan 5, 2015 12:00 AM to Sun, Jan 11, 2015 11:59 PM"
+  date_parts <- strsplit(date_range, " to ")[[1]] #split at "to"
+  
+  #remove day and time
+  
+  #gsub: ^start from beginning, 
+  #     [^,]+ match one or more chars that are not a comma, 
+  #     \\s* match a comma followed by white space
+  start_date <- as.Date(trimws(gsub("^[^,]+,\\s*", "", #removes day
+  #remove 12:00 AM from first part of vector                
+                               sub(" 12:00 AM", "", date_parts[1]))),
+  #convert to R date object
+                               format = "%b %d, %Y") 
+  
+  #initialize week dates
+  week_dates <- seq(start_date, by = "day", length.out = 7)
+  
+  #return vector of rows that start contain a dash "-"
+  hours_idx <- which(grepl("-", raw[[1]]))
+  
+  names <- c()
+  for(i in hours_idx) {
+    name <- trimws(gsub("-.*", "", raw[[1]][i]))
+    names <- c(names, name)
+  }
+
+  days_row <- raw[5, ] #create vector of days of the week
+  
+  data_rows <- bind_rows(days_row, raw[hours_idx, ]) #combine
+  
+  #replace the day names row with dates
+  data_rows[1, 2:8] <- as.list(format(week_dates, "%Y-%m-%d"))
+  
+  #transpose
+  df <- as.data.frame(t(data_rows))
+  
+  #name columns
+  colnames(df) <- c("Date", names)
+  
+  df <- df %>%
+    slice(-1, -9)
+  
+  #add NAs for missing columns
+  for (i in expected_cols) {
+    if (!(i %in% colnames(df))) {
+      df[[i]] <- NA
+    }
+  }
+  
+  return(df)
+}
+
+```
+
+```{r create df}
+
+#create list of years
+yearsCount <- list.files("countData", full.names = TRUE)
+
+#combine
+count <- map_dfr(yearsCount, function(folder) {
+  files <- list.files(folder, pattern = "week\\d+\\.csv", full.names = TRUE)
+  map_dfr(files, cleanCount)
+}) %>% 
+  arrange(Date)
+
+count <- count %>%
+  mutate(Date = as.Date(Date, format = "%Y-%m-%d"), #date column as Date type
+         across(-Date, as.numeric)) %>% #set all columns to numeric
+  complete(Date = seq(min(Date), max(Date), by = "day")) %>% #add missing days
+  mutate(across(-Date, ~ replace_na(., 0))) #replace NAs with 0s
+
+count <- count %>%
+  relocate("5:00AM", .before = "9:00AM") %>%
+  relocate("6:00AM", .after = "5:00AM") %>%
+  relocate("7:00AM", .after = "6:00AM") %>%
+  relocate("8:00AM", .after = "7:00AM") %>%
+  relocate("6:00AM", .after = "5:00AM") %>%
+  relocate("5:00PM", .after = "4:00PM") %>%
+  relocate("6:00PM", .after = "5:00PM") %>%
+  relocate("5:00PM", .after = "4:00PM") %>%
+  mutate(total = rowSums(count[, -1]))
 
 
+```
 
+```{r write csv}
+write.csv(membership, "cleanData/membership.csv", row.names = FALSE)
+write.csv(count, "cleanData/count.csv", row.names = FALSE)
+```
 
