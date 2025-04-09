@@ -90,8 +90,8 @@ clean <- function(file_path,
                        "Class TU/TR Total",
                        "Club Sports - Limited Total",
                        "Club Sports- Limited Total",             
-                       "Guest Pass Total",                                     
-                       "Community Membership Total",                           
+                       "Guest Pass Total",                        
+                       "Community Membership Total",        
                        "Club Sports- Basketball - Limited Hours Total",        
                        "Club Sport Fencing - Limited Hours Total",             
                        "Club Sports - Wushu - Limited Hours Total",            
@@ -230,7 +230,7 @@ membership <- membership %>%
          col4 = "Club Sports - Limited Total",                          
          col5 = "Club Sports- Limited Total",                           
          col6 = "Guest Pass Total",                                     
-         col7 = "Community Membership Total",                           
+         col7 = "Community Membership Total", # check                          
          col8 = "Club Sports- Basketball - Limited Hours Total",        
          col9 = "Club Sport Fencing - Limited Hours Total",             
          col10 = "Club Sports - Wushu - Limited Hours Total",            
@@ -238,7 +238,7 @@ membership <- membership %>%
          col12 = "Athletics - Tennis Total",                             
          col13 = "Club Sports - Jiu Jitsu - Limited Hours Total",        
          col14 = "Club Sports - Swim - Limited Hours Total",             
-         col15 = "Faculty/Staff Total",                                  
+         col15 = "Faculty/Staff Total", # check                             
          col16 = "NCU Semester Membership Total",                        
          col17 = "Spouse/Dependent Total",                               
          col18 = "Student Off Term Total",                               
@@ -389,5 +389,27 @@ count <- count %>%
 ```{r write csv}
 write.csv(membership, "cleanData/membership.csv", row.names = FALSE)
 write.csv(count, "cleanData/count.csv", row.names = FALSE)
+```
+
+```{r}
+library(tidyverse)
+membership_long <- membership %>% 
+  pivot_longer(cols = c(nonmembers:total),
+                names_to = "names",
+               values_to = "counts")
+m
+embership_long %>%
+  mutate(year = year(date))
+
+membership %>%
+  mutate(year = year(date)) %>%
+  mutate(month = month(date)) %>%
+  group_by(month) %>%
+  summarize(meanTotal = mean(total)) %>%
+  ggplot(aes(x = month, y = meanTotal)) +
+    geom_line()
+
+
+
 ```
 
