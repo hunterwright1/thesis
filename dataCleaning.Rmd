@@ -17,62 +17,6 @@ p_load(dplyr, broom, ggplot2, tidyverse, readr, purrr, tidyr, gtools)
 
 ```
 
-```{r clean data example, eval=FALSE, include=FALSE}
-jan15w1_dirty <- read_csv("membershipData/2015/week1.csv")
-
-jan15w1 <- jan15w1_dirty %>%
-  slice(6, 22, 40, 60, 81, 89, 98, 116, 117) %>%
-  select(-"...9", -"Usage By Hour And Day Grouped By Membership") %>%
-  relocate("...2", .after = "...8") %>%
-  rename(
-    "2015-01-11" = "...2",
-    "2015-01-05" = "...3",
-    "2015-01-06" = "...4",
-    "2015-01-07" = "...5",
-    "2015-01-08" = "...6",
-    "2015-01-09" = "...7",
-    "2015-01-10" = "...8"
-  )
-rownames(jan15w1) <- c("Day", "No Membership Total", "Alumni Total", "Community Member Total", "Student Total", "Student 1 Total", "Faculty/Staff Total", "PE/Rec Staff Total", "Total" )
-
-jan15w1 <- as.data.frame(t(jan15w1))
-
-print(jan15w1)
-```
-```{r import 2015 dataset, eval=FALSE, include=FALSE}
-
-
-# Set the folder path (update this to your actual folder)
-folder_path <- "membershipData/2015"
-
-# List CSV files in natural order
-files2015 <- mixedsort(list.files(path = folder_path, pattern = "\\.csv$", full.names = TRUE))
-
-# Read and combine all CSVs into one data frame
-year2015 <- files2015 %>% 
-  map_dfr(read_csv)
-```
-```{r remove junk rows, eval=FALSE, include=FALSE}
-
-df2015 <- as.data.frame(year2015) %>% #convert to data frame
-  rename("column1" = "Usage By Hour And Day Grouped By Membership") %>%
-  select(-"...9") %>% 
-  filter(!(.[[1]] == "Parameters")) %>%
-  filter(!(str_detect(column1, "PM") & str_detect(column1, "AM") & str_detect(column1, "-"))) %>% 
-  filter(!(str_detect(column1, "PM") & str_detect(column1, "-"))) %>%
-  filter(!(str_detect(column1, "AM") & str_detect(column1, "-"))) %>%
-  filter(!str_detect(column1, "Readers")) %>%
-  filter(!str_detect(column1, "Days of the week")) %>%
-  filter(!str_detect(column1, "Memberships")) %>%
-  filter(!str_detect(column1, "2025")) %>%
-  relocate("...2", .after = "...8")
-
-```
-
-dummy variable list:
-Finals Season
-
-
 ```{r membership function}
 
 clean <- function(file_path,
