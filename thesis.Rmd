@@ -1,0 +1,17 @@
+---
+title: "thesis"
+author: "Hunter Wright"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Topics to cover:
+- loss aversion
+- herd behavior
+- rank members by how valuable their time is
+
+Question: For many people, going to the gym is hard, and more importantly, it takes time. Is there a significant effect of certain events like finals on gym attendance?

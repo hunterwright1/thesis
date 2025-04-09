@@ -69,8 +69,6 @@ df2015 <- as.data.frame(year2015) %>% #convert to data frame
 
 ```
 
-notes
-rank members by how valuable their time is
 dummy variable list:
 Finals Season
 
@@ -395,7 +393,7 @@ write.csv(membership, "cleanData/membership.csv", row.names = FALSE)
 write.csv(count, "cleanData/count.csv", row.names = FALSE)
 ```
 
-```{r}
+```{r testing}
 library(tidyverse)
 membership_long <- membership %>% 
   pivot_longer(cols = c(nonmembers:total),
@@ -407,7 +405,8 @@ membership_long %>%
 membership %>%
   mutate(year = year(date)) %>%
   mutate(month = month(date)) %>%
-  ggplot(aes(x = date, y = other)) +
+  filter(year == 2023, month == 7) %>%
+  ggplot(aes(x = date, y = student_offterm)) +
     geom_line()
 
 membership_dirty %>%
@@ -418,4 +417,21 @@ membership_dirty %>%
 
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
