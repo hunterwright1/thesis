@@ -14,4 +14,29 @@ Topics to cover:
 - herd behavior
 - rank members by how valuable their time is
 
-Question: For many people, going to the gym is hard, and more importantly, it takes time. Is there a significant effect of certain events like finals on gym attendance?
+Questions: 
+
+For many people, going to the gym is hard, and more importantly, it takes time. Is there a significant effect of certain events like finals on gym attendance? 
+
+What trends in attendance do we observe across different time periods? 
+
+How do different membership types behave differently in response to certain conditions?
+
+
+
+Dummy variables to add:
+
+finals season (dead week + finals week)
+weekend
+weekday
+vacation
+summer quarter
+SRC maintenance closure (september)
+COVID-19 Closure
+weather (rainy or not) *
+football gamedays *
+hayward prefontaine classic *
+track and field championships/eugene marathon *
+
+
+

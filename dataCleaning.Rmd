@@ -138,7 +138,6 @@ clean <- function(file_path,
 }
 
 ```
-
 ```{r create membership df}
 
 #create list of years
@@ -218,7 +217,6 @@ membership <- membership_dirty %>%
 
 
 ```
-
 ```{r count function}
 cleanCount <- function(file_path,
                   expected_cols = c("Date", "5:00AM",
@@ -299,8 +297,7 @@ cleanCount <- function(file_path,
 }
 
 ```
-
-```{r create df}
+```{r create count df}
 
 #create list of years
 yearsCount <- list.files("countData", full.names = TRUE)
@@ -331,12 +328,10 @@ count <- count %>%
 
 
 ```
-
 ```{r write csv}
 write.csv(membership, "cleanData/membership.csv", row.names = FALSE)
 write.csv(count, "cleanData/count.csv", row.names = FALSE)
 ```
-
 ```{r testing}
 library(tidyverse)
 membership_long <- membership %>% 
@@ -361,8 +356,6 @@ membership_dirty %>%
 
 
 ```
-
-
 
 
 
