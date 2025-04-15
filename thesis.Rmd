@@ -7,6 +7,9 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(pacman)
+p_load(tidyverse)
 ```
 
 Topics to cover:
@@ -27,12 +30,9 @@ How do different membership types behave differently in response to certain cond
 Dummy variables to add:
 
 finals season (dead week + finals week) *
-weekend
-weekday
 vacation *
 summer quarter
 SRC maintenance closure (september)
-COVID-19 Closure
 weather (rainy or not) *
 football gamedays *
 hayward prefontaine classic *
@@ -55,14 +55,54 @@ count <- count %>%
 
 ```{r add dummies}
 
+# create weekday column
 members <- members %>%
   mutate(day = weekdays(as.Date(date))) %>%
-  relocate( day, .after = date)
+  relocate( day, .after = date) 
 count <- count %>%
   rename(date = Date) %>%
   mutate(day = weekdays(as.Date(date))) %>%
   relocate( day, .after = date)
 
+# weekday/weekend dummy
+members <- members %>%
+  mutate(weekend = ifelse(day == "Saturday" | day == "Sunday", 1, 0))
+count <- count %>%
+  mutate(weekend = ifelse(day == "Saturday" | day == "Sunday", 1, 0))
+
+# covid dummy
+members <- members %>%
+  mutate(covid = ifelse("2020-03-18" <= date & date < "2020-09-21", 1, 0))
+count <- count %>%
+  mutate(covid = ifelse("2020-03-18" <= date & date < "2020-09-21", 1, 0))
+
+#closed dummy (total entrances = 0)
+members <- members %>%
+  mutate(closed = ifelse(students == 0, 1, 0)) #no students: probably closed
+count <- count %>%
+  mutate(closed = ifelse(total < 10, 1, 0)) # account for closures with pe_staff present
+
+#closure numbers within 20 observations of each other
+members %>%
+  filter(students == 0) %>%
+  nrow() #655
+
+count %>%
+  filter(total < 10) %>%
+  nrow() #672
+
+
+
 ```
+
+```{r}
+
+```
+
+
+
+
+
+
 
 
