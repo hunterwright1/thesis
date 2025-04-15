@@ -26,10 +26,10 @@ How do different membership types behave differently in response to certain cond
 
 Dummy variables to add:
 
-finals season (dead week + finals week)
+finals season (dead week + finals week) *
 weekend
 weekday
-vacation
+vacation *
 summer quarter
 SRC maintenance closure (september)
 COVID-19 Closure
@@ -38,5 +38,31 @@ football gamedays *
 hayward prefontaine classic *
 track and field championships/eugene marathon *
 
+
+```{r read csv}
+
+count <- read.csv("cleanData/count.csv")
+members <- read.csv("cleanData/membership.csv")
+
+```
+```{r rename count columns}
+
+count <- count %>%
+  rename(am5 = "X5.00AM", am6 = "X6.00AM", am7 = "X7.00AM", am8 = "X8.00AM", am9 = "X9.00AM", am10 = "X10.00AM", am11 = "X11.00AM", pm12 = "X12.00PM", pm1 = "X1.00PM", pm2 = "X2.00PM", pm3 = "X3.00PM", pm4 = "X4.00PM", pm5 = "X5.00PM", pm6 = "X6.00PM", pm7 = "X7.00PM", pm8 = "X8.00PM", pm9 = "X9.00PM", pm10 = "X10.00PM", pm11 = "X11.00PM")
+```
+
+
+
+```{r add dummies}
+
+members <- members %>%
+  mutate(day = weekdays(as.Date(date))) %>%
+  relocate( day, .after = date)
+count <- count %>%
+  rename(date = Date) %>%
+  mutate(day = weekdays(as.Date(date))) %>%
+  relocate( day, .after = date)
+
+```
 
 
