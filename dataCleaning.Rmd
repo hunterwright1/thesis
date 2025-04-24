@@ -71,7 +71,7 @@ clean <- function(file_path,
   #read in csv
   raw <- read_csv(file_path, col_names = FALSE, show_col_types = FALSE)
 
- raw <- raw %>%
+  raw <- raw %>%
     relocate("X2", .after = "X8")
   
   date_range <- raw[[1]][3] #date range is in row 3 column 1
@@ -80,9 +80,9 @@ clean <- function(file_path,
   date_parts <- strsplit(date_range, " to ")[[1]] #split at "to"
   
   #remove day and time
-  #gsub: ^start from beginning, [^,]+ match one or more chars that are not a comma, \\s* match a comma followed by whitespace
+  #gsub: ^start from beginning, [^,]+ match one or more chars that are not a comma, \\s*   match a comma followed by whitespace
   start_date <- as.Date(trimws(gsub("^[^,]+,\\s*", "", #removes day
-                  sub(" 12:00 AM", "", date_parts[1]))), #remove 12:00 AM from first part of vector
+                  sub(" 12:00 AM", "", date_parts[1]))), #remove 12:00 AM from first part   of vector
                   format = "%b %d, %Y") #convert to R date object
   
   #initialize week dates
@@ -99,7 +99,7 @@ clean <- function(file_path,
   membership_names <- c() #create vector to store names
   for (ti in totals_idx) { #iterate over each row index ti where the totals for a membership are recorded
     preceding <- type_idx[type_idx < ti] #find all rows from type_idx that come before the current totals row ti
-    if (length(preceding) > 0) { #check if there is at least one membership type row before the totals row
+    if (length(preceding) > 0) { #check if there is at least one membership type row  before the totals row
       last_type <- max(preceding) #pick the last membership type row 
       mem_name <- trimws(sub("Membership Type:", "", raw[[1]][last_type]))
       membership_names <- c(membership_names, paste(mem_name, "Total"))
@@ -356,19 +356,4 @@ membership_dirty %>%
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
