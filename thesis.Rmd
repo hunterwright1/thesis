@@ -28,25 +28,13 @@ How do different membership types behave differently in response to certain cond
 
 
 Dummy variables to add:
-
-
 week of the quarter fixed effects
-
 quarter fixed effects
 calendar month (possible)
 
 weather (rainy or not) *
 
-football gamedays *
-
-
-
-
-
-
-remove 5am
 consider dropping closed days
-add dummy for if closed yesterday
 
 summary stats table
 might need only one regression for the entire paper?
@@ -65,7 +53,6 @@ members <- read.csv("cleanData/membership.csv")
 count <- count %>%
   rename(am5 = "X5.00AM", am6 = "X6.00AM", am7 = "X7.00AM", am8 = "X8.00AM", am9 = "X9.00AM", am10 = "X10.00AM", am11 = "X11.00AM", pm12 = "X12.00PM", pm1 = "X1.00PM", pm2 = "X2.00PM", pm3 = "X3.00PM", pm4 = "X4.00PM", pm5 = "X5.00PM", pm6 = "X6.00PM", pm7 = "X7.00PM", pm8 = "X8.00PM", pm9 = "X9.00PM", pm10 = "X10.00PM", pm11 = "X11.00PM")
 ```
-
 ```{r weekday column + weekend, covid, closure dummies}
 
 # create weekday column
@@ -95,6 +82,15 @@ members <- members %>%
 count <- count %>%
   mutate(closed = ifelse(total < 10, 1, 0)) # account for closures with pe_staff present
 
+#day after closed dummy
+members <- members %>%
+  mutate(day_after_closed = ifelse(lag(closed) == 1, 1, 0))
+members[1, "day_after_closed"] <- 0
+
+count <- count %>%
+  mutate(day_after_closed = ifelse(lag(closed) == 1, 1, 0))
+count[1, "day_after_closed"] <- 0
+
 #closure numbers within 20 observations of each other
 members %>%
   filter(students == 0) %>%
@@ -104,7 +100,6 @@ count %>%
   filter(total < 10) %>%
   nrow() #672
 ```
-
 ```{r finals dummy}
 .finals <- tribble( #create df of finals week dates
   ~year,   ~start,       ~end,
@@ -173,6 +168,15 @@ count <- count %>% #repeat for other data
 
 count <- count %>%
   select(-am5) #remove 5am col (rec normally closed at this hour)
+
+```
+```{r gameday dummy}
+.gameday <- c(2015-05-02, 2015-09-05, 2015-09-19, 2015-09-26, 2015-10-10, 2015-11-07,   2015-11-21, 2015-11-27, 2016-04-30, 2016-09-03, 2016-09-10, 2016-09-24, 2016-10-08, 2016-10-29, 2016-11-12, 2017-04-29, 2017-09-02, 2017-09-09, 2017-09-30, 2017-10-07, 2017-10-28, 2017-11-18, 2017-11-25, 2018-04-21, 2018-09-01, 2018-09-08, 2018-09-15, 2018-09-22, 2018-10-13, 2018-11-03, 2018-11-17, 2019-04-20, 2019-09-07, 2019-09-14, 2019-10-05, 2019-10-11, 2019-10-26, 2019-11-16, 2019-11-30, 2020-04-18, 2020-11-07, 2020-11-21, 2021-05-01, 2021-09-04, 2021-09-18, 2021-09-25, 2021-10-15, 2021-10-30,   2021-11-13, 2021-11-27, 2022-04-23, 2022-09-10, 2022-09-17, 2022-10-01,2022-10-22, 2022-11-12, 2022-11-19, 2023-04-29, 2023-09-02, 2023-09-16,   2023-09-23, 2023-10-21, 2023-11-04, 2023-11-11, 2023-11-24, 2024-04-27,   2024-08-31, 2024-09-07, 2024-10-04, 2024-10-12, 2024-10-26, 2024-11-09, 2024-11-300)
+
+members <- members %>% 
+  mutate(gameday = as.integer(date %in% .gameday))
+count <- count %>% 
+  mutate(gameday = as.integer(date %in% .gameday))
 
 ```
 
