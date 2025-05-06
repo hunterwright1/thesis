@@ -10,10 +10,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 ```{r load packages}
 library(pacman)
-p_load(dplyr, broom, ggplot2, tidyverse, readr, purrr, tidyr, gtools)
+p_load(dplyr, broom, ggplot2, tidyverse, readr, purrr, tidyr, gtools, fuzzyjoin)
 
 ```
 
@@ -399,9 +398,9 @@ count <- count %>%
 
 # covid dummy
 members <- members %>%
-  mutate(covid = ifelse("2020-03-18" <= date & date < "2020-09-21", 1, 0))
+  mutate(covid = ifelse("2020-03-18" <= date & date < "2021-09-27", 1, 0))
 count <- count %>%
-  mutate(covid = ifelse("2020-03-18" <= date & date < "2020-09-21", 1, 0))
+  mutate(covid = ifelse("2020-03-18" <= date & date < "2021-09-27", 1, 0))
 
 #closed dummy (total entrances = 0)
 members <- members %>%
@@ -497,6 +496,94 @@ count <- count %>%
   select(-am5) #remove 5am col (rec normally closed at this hour)
 
 ```
+
+```{r}
+count <- count %>%
+  filter(date > "2015-01-04")
+
+quarters <- tribble(
+  ~quarter, ~start,        ~end,
+  #2015
+  "Winter", "2015-01-05", "2015-03-20",
+  "Spring", "2015-03-30", "2015-06-12",
+  "Summer", "2015-06-13", "2015-09-04",
+  "Fall",   "2015-09-28", "2015-12-11",
+  #2016
+  "Winter", "2016-01-04", "2016-03-18",
+  "Spring", "2016-03-28", "2016-06-10",
+  "Summer", "2016-06-20", "2016-09-09", 
+  "Fall",   "2016-09-26", "2016-12-09",
+  #2017
+  "Winter", "2017-01-09", "2017-03-24",
+  "Spring", "2017-04-03", "2017-06-16",
+  "Summer", "2017-06-26", "2017-09-15",
+  "Fall",   "2017-09-25", "2017-12-08",
+  #2018
+  "Winter", "2018-01-08", "2018-03-23",
+  "Spring", "2018-04-02", "2018-06-16",
+  "Summer", "2018-06-25", "2018-09-14",
+  "Fall",   "2018-09-24", "2018-12-07",
+  #2019
+  "Winter", "2019-01-07", "2019-03-22",
+  "Spring", "2019-04-01", "2019-06-14",
+  "Summer", "2019-06-24", "2019-09-13",
+  "Fall",   "2019-10-01", "2019-12-13",
+  #2020
+  "Winter", "2020-01-06", "2020-03-20",
+  "Spring", "2020-03-30", "2020-06-12",
+  "Summer", "2020-06-22", "2020-09-11",
+  "Fall",   "2020-09-29", "2020-12-11",
+  #2021
+  "Winter", "2021-01-04", "2021-03-19",
+  "Spring", "2021-03-29", "2021-06-11",
+  "Summer", "2021-06-21", "2021-09-10",
+  "Fall",   "2021-09-27", "2021-12-10",
+  #2022
+  "Winter", "2022-01-03", "2022-03-18",
+  "Spring", "2022-03-28", "2022-06-10",
+  "Summer", "2022-06-20", "2022-09-09",
+  "Fall",   "2022-09-27", "2022-12-13",
+  #2023
+  "Winter", "2023-01-09", "2023-03-24",
+  "Spring", "2023-04-03", "2023-06-16",
+  "Summer", "2023-06-26", "2023-09-15",
+  "Fall",   "2023-09-26", "2023-12-08",
+  #2024
+  "Winter", "2024-01-08", "2024-03-22",
+  "Spring", "2024-04-01", "2024-06-14",
+  "Summer", "2024-06-24", "2024-09-13",
+  "Fall",   "2024-09-30", "2024-12-13"
+) %>%
+  mutate(across(start:end, as.Date))
+
+#join every gym‑date to the quarter it falls in
+count_aug <- fuzzy_left_join(
+  count,                  # your original data
+  quarters,
+  by = c("date" = "start",     # date ≥  quarter start
+         "date" = "end"),      # date ≤  quarter end
+  match_fun = list(`>=`, `<=`)
+) %>%
+  mutate( #add week of quarter and calendar month
+    week_of_quarter = as.integer(floor((date - start) / 7) + 1L),  #starts at 1
+    month           = month(date, label = TRUE, abbr = FALSE)
+  ) %>%
+  select(-start, -end)
+
+#add in label for between quarter dates
+count_aug <- count_aug %>% 
+  mutate(
+    quarter = coalesce(quarter, "Break"),
+    week_of_quarter = if_else(is.na(week_of_quarter), 0L, week_of_quarter)
+  )
+
+count <- count_aug %>%
+  relocate(month, .after = date) %>%
+  relocate(quarter, .after = day) %>%
+  relocate(week_of_quarter, .after = quarter) %>%
+  rename(week = week_of_quarter)
+```
+
 
 ```{r write csv}
 write.csv(members, "cleanData/membership.csv", row.names = FALSE)
