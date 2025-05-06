@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 
 library(pacman)
 p_load(tidyverse, forcats, kableExtra)
@@ -15,19 +15,30 @@ count <- read.csv("cleanData/count.csv")
 members <- read.csv("cleanData/membership.csv")
 
 ```
-```{r factor releveling, covid removed df}
+```{r factor releveling, include=FALSE}
 members <- members %>%
   mutate(day = fct_relevel(day, "Monday"))
 count <- count %>%
-  mutate(day = fct_relevel(day, "Monday"))
+  mutate(day = fct_relevel(day, "Monday")) %>%
+  mutate(month = fct_relevel(month, "August")) %>%
+  mutate(quarter = fct_relevel(quarter, "Fall"))
 
-count_no_covid <- count %>%
-  filter(covid == 0)
+count$date <- as.Date(count$date)
+
+count_open <- count %>%
+  filter(closed == 0)
 ```
 
 # Introduction
 
-```{r Attendance Plot}
+According to their website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.”
+
+Most students, faculty, and staff have busy schedules during the week, and much more time on the weekend, so why does rec traffic decrease when individuals have more time?
+
+In this thesis, I look to analyze how students, faculty, and other SRC patrons display behaviors consistent with present bias and loss aversion.
+
+
+```{r Attendance Plot, fig.height=3, fig.width=4}
 plot2024 <- count %>%
   mutate(year = year(date)) %>%
   filter(year == 2024) %>%
@@ -40,17 +51,24 @@ plot2024 <- count %>%
          y = "Average Daily Visits",
          title = "Weekly Average Gym Attendance – 2024") +
   theme_bw()
+
 plot2024
 ```
 
 # Background
 
-
+In behavioral economics, the concept of present bias explains how agents place more value on immediate rewards and undervalue future rewards. This bias causes individuals to prioritize short term gratification over long term gains. Loss aversion refers to how agents dislike losses more than they like gains. In other words, the pain of a loss outweighs the pleasure of an equivalent gain. This analysis aims to interpret how the trends in gym attendance represent these behaviors  
 
 # Data
 
-```{r summary statistics table}
-summary_stats <- count %>%
+The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. 
+
+Almost every individual that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open (~81% of days accounting for COVID-19 closure).
+
+```{r summary statistics}
+
+# closed days are removed
+.summary_stats <- count_open %>%
   summarise(
     Mean = mean(total),
     Median = median(total),
@@ -59,11 +77,12 @@ summary_stats <- count %>%
     Max = max(total)
   )
 
-kable(summary_stats, caption = "Summary Statistics") %>%
+kable(.summary_stats, caption = "Summary Statistics") %>%
   kable_styling(full_width = FALSE) %>%
   row_spec(0, align = "c") %>%
   row_spec(1, align = "c")
 ```
+
 
 # Methods
 
@@ -71,14 +90,13 @@ kable(summary_stats, caption = "Summary Statistics") %>%
 
 # Results
 ```{r first regression}
-test2 <- lm(total ~ day + closed + day_after_closed + finals_week + dead_week, count_no_covid)
+model <- lm(total ~ day + week + month + quarter + day_after_closed + finals_week + dead_week, count_open)
 
-summary(test2)
+summary(model)
 ```
 
 
 # Conclusion
-
 
 
 
