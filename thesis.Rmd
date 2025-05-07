@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 
 library(pacman)
-p_load(tidyverse, forcats, kableExtra)
+p_load(tidyverse, forcats, kableExtra, stargazer, tseries, lmtest, sandwich, scales)
 
 count <- read.csv("cleanData/count.csv")
 members <- read.csv("cleanData/membership.csv")
@@ -20,7 +20,7 @@ members <- members %>%
   mutate(day = fct_relevel(day, "Monday"))
 count <- count %>%
   mutate(day = fct_relevel(day, "Monday")) %>%
-  mutate(month = fct_relevel(month, "August")) %>%
+  mutate(month = fct_relevel(month, "October")) %>%
   mutate(quarter = fct_relevel(quarter, "Fall"))
 
 count$date <- as.Date(count$date)
@@ -31,14 +31,14 @@ count_open <- count %>%
 
 # Introduction
 
-According to their website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.”
+The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends.
 
-Most students, faculty, and staff have busy schedules during the week, and much more time on the weekend, so why does rec traffic decrease when individuals have more time?
+On any given day of the week, a student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. For faculty and other community members, the same responsibilities are present, oftentimes with additional familial duties. According to their website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.” Most individuals have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time?
 
-In this thesis, I look to analyze how students, faculty, and other SRC patrons display behaviors consistent with present bias and loss aversion.
+In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students, faculty, and other SRC patrons display behaviors consistent with the behavioral economics concepts of present bias and loss aversion.
 
 
-```{r Attendance Plot, fig.height=3, fig.width=4}
+```{r Attendance Plot, fig.height=3, fig.width=5, fig.align = 'center'}
 plot2024 <- count %>%
   mutate(year = year(date)) %>%
   filter(year == 2024) %>%
@@ -57,13 +57,46 @@ plot2024
 
 # Background
 
-In behavioral economics, the concept of present bias explains how agents place more value on immediate rewards and undervalue future rewards. This bias causes individuals to prioritize short term gratification over long term gains. Loss aversion refers to how agents dislike losses more than they like gains. In other words, the pain of a loss outweighs the pleasure of an equivalent gain. This analysis aims to interpret how the trends in gym attendance represent these behaviors  
+In behavioral economics, the concept of present bias explains how agents place more value on immediate rewards and undervalue future rewards. This bias causes individuals to prioritize short term gratification over long term gains. Loss aversion refers to how agents dislike losses more than they like gains. In other words, the pain of a loss outweighs the pleasure of an equivalent gain. This analysis aims to interpret how the trends in gym attendance reflect these behaviors.
+
+### The Standard Economic Model
+
+The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day. With so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. 
+
+```{r week attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
+count %>%
+  mutate(year = year(date)) %>%
+  filter(year == 2024) %>%
+  filter(month == "October") %>%
+  filter(week == 3) %>%
+  ggplot(aes(x = date, y = total)) + 
+  geom_line() +
+  geom_point(size = 2) +
+  scale_y_continuous(labels = comma_format()) +
+  scale_x_date(date_breaks = "1 day",
+               date_labels = "%A") +
+  labs(
+    x = NULL,
+    y = "Attendance",
+    title = "Week 3 Gym Attendance During Fall 2024",
+    subtitle = "Oct 14 – Oct 20, 2024"
+  ) +
+  theme_bw()
+
+```
+
+
+### Present Bias
+ 
+Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place less value on choices with future rewards, even if they are greater than present rewards. This is known as **present bias**. For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. 
+
+### Loss Aversion
+
+
 
 # Data
 
-The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. 
-
-Almost every individual that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open (~81% of days accounting for COVID-19 closure).
+Almost every individual that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
 
 ```{r summary statistics}
 
@@ -86,14 +119,52 @@ kable(.summary_stats, caption = "Summary Statistics") %>%
 
 # Methods
 
+For my analysis, I maintain my use of the recorded daily entrances between January 2015 and December 2024, without
 
+To analyze both short and long‑run attendance dynamics, I regress daily gym patron attendance on lagged attendance, weekday, week‑of‑term, month, quarter, post‑closure status, and finals/dead‑week indicators. 
+
+$$
+\hat{\text{total}}_{t} = \beta_0 + \beta_1\,\text{total}_{t-1} \;+\; \sum_{d=1}^{6}\gamma_d\,\text{Day}_{d,t} \;+\;\beta_2\,\text{Week}_t \;+\;
+\sum_{m=2}^{12}\delta_m\,\text{Month}_{m,t} \;+\; \sum_{q=2}^{4}\theta_q\,\text{Quarter}_{q,t}\;+\; \beta_3\,\text{AfterClosed}_t
+$$ 
+$$
+\;+\; \beta_4\,\text{FinalsWeek}_t \;+\; \beta_5\,\text{DeadWeek}_t \;+\; \varepsilon_t
+$$
+
+
+Because I'm working with time series data, I conducted several tests to ensure unbiased estimates and satisfy Gauss-Markov assumptions. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
 # Results
-```{r first regression}
-model <- lm(total ~ day + week + month + quarter + day_after_closed + finals_week + dead_week, count_open)
+```{r first regression, include=FALSE}
 
+model <- lm(total ~ lag(total) + day + week + month + quarter + day_after_closed + finals_week + dead_week, count_open)
+
+#adding a lag reduced AR(1)
 summary(model)
+
+robust <- sqrt(diag(NeweyWest(model, lag = 7)))
+
 ```
+
+```{r day regression stargazer, results = "asis"}
+.s1Variables <- c("Constant",          
+              "lag\\(total\\)",
+            "dayTuesday", "dayWednesday", "dayThursday",
+            "dayFriday",  "daySaturday",  "daySunday")
+
+stargazer(model,
+          type = "text",
+          keep = .s1Variables,
+          order = .s1Variables,
+          se = list(robust),
+          keep.stat = c("n", "adj.rsq", "ser", "f"),
+          digits = 3,
+          dep.var.labels = "Total Students",
+          covariate.labels = c("Intercept", "Total Students (t-1)", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
+          title = "Intraweek Effects",
+          header = FALSE)
+```
+
 
 
 # Conclusion
