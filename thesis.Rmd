@@ -33,13 +33,10 @@ count_open <- count %>%
 
 The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends.
 
-On any given day of the week, a student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. For faculty and other community members, the same responsibilities are present, oftentimes with additional familial duties. According to their website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.” Most individuals have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time?
-
-In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students, faculty, and other SRC patrons display behaviors consistent with the behavioral economics concepts of present bias and loss aversion.
-
+On any given day of the week, a student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. For faculty and other community members, the same responsibilities are present, oftentimes with additional familial duties. According to the SRC website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.” Most individuals have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time? In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students, faculty, and other SRC patrons display behaviors consistent with the behavioral economics concepts of present bias and loss aversion.
 
 ```{r Attendance Plot, fig.height=3, fig.width=5, fig.align = 'center'}
-plot2024 <- count %>%
+.plot2024 <- count %>%
   mutate(year = year(date)) %>%
   filter(year == 2024) %>%
   mutate(week = floor_date(date, "week", week_start = 1)) %>%
@@ -47,13 +44,35 @@ plot2024 <- count %>%
   summarise(avg_total = mean(total, na.rm = TRUE), .groups = "drop") %>% 
   ggplot(aes(week, avg_total)) +
   geom_line() +
-    labs(x = "Time",
+    labs(x = NULL,
          y = "Average Daily Visits",
          title = "Weekly Average Gym Attendance – 2024") +
-  theme_bw()
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 10, face = "bold"),
+    plot.subtitle = element_text(size = 7),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 7)
+  )
 
-plot2024
+.plot2024
 ```
+
+### Literature Review
+
+The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk (1979), by Kahneman and Tversky. This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. For example, when presented with the following two choices:
+
+- Choice A: 50% chance to receive $1,000, 50% chance to receive nothing
+
+- Choice B: 100% chance to receive $450
+
+The expected monetary values are:
+
+$$\mathbb{E}[A] \;=\; 0.5 \times 1000 + 0.5 \times 0 \;=\; \$500$$
+
+$$\mathbb{E}[B] \;=\; 1.0 \times 450 \;=\; \$450$$
+
+Kahneman and Tversky found that most participants selected choice B, even though $\mathbb{E}[A] > \mathbb{E}[B]$, illustrating a systematic departure from the standard economic assumption of utility maximization under risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on time as another form of currency, where students risk their academic success based on their use of time.
 
 # Background
 
@@ -61,9 +80,9 @@ In behavioral economics, the concept of present bias explains how agents place m
 
 ### The Standard Economic Model
 
-The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day. With so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. 
+The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day. With so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. However, as the graph below shows, this tends not to be the case.
 
-```{r week attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
+```{r week 3 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
 count %>%
   mutate(year = year(date)) %>%
   filter(year == 2024) %>%
@@ -78,10 +97,16 @@ count %>%
   labs(
     x = NULL,
     y = "Attendance",
-    title = "Week 3 Gym Attendance During Fall 2024",
-    subtitle = "Oct 14 – Oct 20, 2024"
+    title = "Week 3 Gym Attendance, Fall 2024",
+    subtitle = "October 14 – 20, 2024"
   ) +
-  theme_bw()
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 10, face = "bold"),
+    plot.subtitle = element_text(size = 7),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 7)
+  )
 
 ```
 
@@ -92,11 +117,15 @@ Individuals experiencing a dilemma with ramifications that unfold over time (kno
 
 ### Loss Aversion
 
+Though it's difficult for many people to go to the gym, others enjoy it and have no trouble going consistently. I 
 
+Loss aversion stems from an agent's perceived utility from loss and gains relative to a reference point.
+
+Loss-averse utility:  
 
 # Data
 
-Almost every individual that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
+Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
 
 ```{r summary statistics}
 
@@ -168,17 +197,6 @@ stargazer(model,
 
 
 # Conclusion
-
-
-
-
-
-
-
-
-
-
-
 
 
 
