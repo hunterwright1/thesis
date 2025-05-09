@@ -29,6 +29,15 @@ count_open <- count %>%
   filter(closed == 0)
 ```
 
+Notes:
+
+- expand analysis/interpretation
+- incorporate membership controls
+- how to preview results?
+- add formulas to represent behavioral economics concepts?
+- formatting needs fix (last thing to do)
+
+
 # Introduction
 
 The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends.
@@ -60,7 +69,7 @@ On any given day of the week, a student might have class, work, homework, and ot
 
 ### Literature Review
 
-The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk (1979), by Kahneman and Tversky. This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. For example, when presented with the following two choices:
+The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk, by Kahneman and Tversky (1979). This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. For example, when presented with the following two choices:
 
 - Choice A: 50% chance to receive $1,000, 50% chance to receive nothing
 
@@ -72,11 +81,11 @@ $$\mathbb{E}[A] \;=\; 0.5 \times 1000 + 0.5 \times 0 \;=\; \$500$$
 
 $$\mathbb{E}[B] \;=\; 1.0 \times 450 \;=\; \$450$$
 
-Kahneman and Tversky found that most participants selected choice B, even though $\mathbb{E}[A] > \mathbb{E}[B]$, illustrating a systematic departure from the standard economic assumption of utility maximization under risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on time as another form of currency, where students risk their academic success based on their use of time.
+Kahneman and Tversky found that most participants selected choice B, even though $\mathbb{E}[A] > \mathbb{E}[B]$, illustrating a systematic departure from the standard economic assumption of utility maximization under risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on time as another form of currency, where students risk their academic success based on their use of time. Other similar literature related to gym attendance focuses mainly on incentives. Incentives are another behavioral economic concept originating from Nudge Theory in a book Nudge: Improving Decisions About Health, Wealth, and Happiness by Thaler and Sunstein (2008). For example, Habla and Muller found increases in weekly exercise frequency from members that received weekly email reminders.
 
 # Background
 
-In behavioral economics, the concept of present bias explains how agents place more value on immediate rewards and undervalue future rewards. This bias causes individuals to prioritize short term gratification over long term gains. Loss aversion refers to how agents dislike losses more than they like gains. In other words, the pain of a loss outweighs the pleasure of an equivalent gain. This analysis aims to interpret how the trends in gym attendance reflect these behaviors.
+Behavioral economics is the study of how people in the real world approach decisions in an irrational manner. Contrary to what standard model economics believes, people don't disregard emotion, habit, and other feelings when making decisions. Though behavioral economics primarily focuses on how individuals make decisions with limited money, this thesis shows that individuals may treat limited time in a similar manner.  
 
 ### The Standard Economic Model
 
@@ -110,22 +119,35 @@ count %>%
 
 ```
 
-
 ### Present Bias
  
 Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place less value on choices with future rewards, even if they are greater than present rewards. This is known as **present bias**. For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. 
 
-### Loss Aversion
-
-Though it's difficult for many people to go to the gym, others enjoy it and have no trouble going consistently. I 
+### Loss Aversion (in progress)
 
 Loss aversion stems from an agent's perceived utility from loss and gains relative to a reference point.
 
-Loss-averse utility:  
+Weekend reference point: relaxation. 
+utility from exercise is not enough to deviate from relaxation => lower attendance
+
+Weekday reference point: hard work
+no utility loss from exercise during the week as reference point is hard work => high attendance
 
 # Data
 
-Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
+Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19. Students make up about 93% of daily gym attendees on average. 
+
+- talk about discrepancy between two data sets
+- talk about possible data collection issues.
+
+```{r student proportion calculation, include=FALSE}
+members %>%
+  summarize(
+    meanStudents = mean(students),
+    meanTotal = mean(total),
+    averageproportion = meanStudents/meanTotal
+  )
+```
 
 ```{r summary statistics}
 
@@ -145,7 +167,6 @@ kable(.summary_stats, caption = "Summary Statistics") %>%
   row_spec(1, align = "c")
 ```
 
-
 # Methods
 
 For my analysis, I maintain my use of the recorded daily entrances between January 2015 and December 2024, without
@@ -159,7 +180,6 @@ $$
 $$
 \;+\; \beta_4\,\text{FinalsWeek}_t \;+\; \beta_5\,\text{DeadWeek}_t \;+\; \varepsilon_t
 $$
-
 
 Because I'm working with time series data, I conducted several tests to ensure unbiased estimates and satisfy Gauss-Markov assumptions. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
@@ -176,25 +196,48 @@ robust <- sqrt(diag(NeweyWest(model, lag = 7)))
 ```
 
 ```{r day regression stargazer, results = "asis"}
-.s1Variables <- c("Constant",          
-              "lag\\(total\\)",
-            "dayTuesday", "dayWednesday", "dayThursday",
-            "dayFriday",  "daySaturday",  "daySunday")
+.s1Variables <- c("Constant", "lag\\(total\\)", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday")
 
 stargazer(model,
-          type = "text",
+          type = "latex",
           keep = .s1Variables,
           order = .s1Variables,
           se = list(robust),
           keep.stat = c("n", "adj.rsq", "ser", "f"),
           digits = 3,
-          dep.var.labels = "Total Students",
+          dep.var.labels = "Total Attendance",
           covariate.labels = c("Intercept", "Total Students (t-1)", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
           title = "Intraweek Effects",
-          header = FALSE)
+          header = FALSE,
+          no.space = TRUE)
 ```
 
+Controlling for AR(1) persistence, the model predicts a statistically significant monotonic decline as the week progresses. The intercept, representing a Monday in fall term, not during finals/dead week, and not after a closure, expects 2,779 students on average, that declines to an intraweek low on Saturday. The lagged attendance variable predicts that 75% of Monday's "surprise", if any, carries on to the next day. For example, if there are 1,000 more patrons on Monday, we expect ~750 more than expected on Tuesday. These outcomes reinforce the idea that gym patrons are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, gym attendees are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable. 
 
+
+```{r quarter regression stargazer, results = "asis"}
+.s2Variables <- c("Constant", "week", "dead_week", "finals_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer")
+
+stargazer(model,
+          type = "latex",
+          keep = .s2Variables,
+          order = .s2Variables,
+          se = list(robust),
+          keep.stat = c("n", "adj.rsq", "ser", "f"),
+          digits = 3,
+          dep.var.labels = "Total Attendance",
+          covariate.labels = c("Intercept", "Week of the Term", "Finals Week", "Week Before Finals", "Break", "Winter", "Spring", "Summer"),
+          title = "Long Term Effects",
+          header = FALSE,
+          no.space = TRUE)
+```
+
+Longer term effects showed more inconsistent significance. The week of the term coefficient reports a significant but negligible negative relationship with attendance, while the finals week variable predictably reports lower attendance. 
+
+
+
+
+The F-statistic reports a statistically significant value of 780, rejecting the null hypothesis that all coefficients are zero.  Coupled with an adjusted $R^2$ of 0.872, this model accounts for a substantial share of day to day variation in gym attendance.
 
 # Conclusion
 
