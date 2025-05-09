@@ -198,6 +198,7 @@ robust <- sqrt(diag(NeweyWest(model, lag = 7)))
 ```{r day regression stargazer, results = "asis"}
 .s1Variables <- c("Constant", "lag\\(total\\)", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday")
 
+cat("\\begin{center}\n") 
 stargazer(model,
           type = "latex",
           keep = .s1Variables,
@@ -209,7 +210,9 @@ stargazer(model,
           covariate.labels = c("Intercept", "Total Students (t-1)", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
           title = "Intraweek Effects",
           header = FALSE,
-          no.space = TRUE)
+          no.space = TRUE,
+          float = FALSE)
+cat("\\end{center}\n")
 ```
 
 Controlling for AR(1) persistence, the model predicts a statistically significant monotonic decline as the week progresses. The intercept, representing a Monday in fall term, not during finals/dead week, and not after a closure, expects 2,779 students on average, that declines to an intraweek low on Saturday. The lagged attendance variable predicts that 75% of Monday's "surprise", if any, carries on to the next day. For example, if there are 1,000 more patrons on Monday, we expect ~750 more than expected on Tuesday. These outcomes reinforce the idea that gym patrons are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, gym attendees are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable. 
@@ -218,6 +221,7 @@ Controlling for AR(1) persistence, the model predicts a statistically significan
 ```{r quarter regression stargazer, results = "asis"}
 .s2Variables <- c("Constant", "week", "dead_week", "finals_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer")
 
+cat("\\begin{center}\n") 
 stargazer(model,
           type = "latex",
           keep = .s2Variables,
@@ -229,7 +233,9 @@ stargazer(model,
           covariate.labels = c("Intercept", "Week of the Term", "Finals Week", "Week Before Finals", "Break", "Winter", "Spring", "Summer"),
           title = "Long Term Effects",
           header = FALSE,
-          no.space = TRUE)
+          no.space = TRUE,
+          float = FALSE)
+cat("\\end{center}\n")
 ```
 
 Longer term effects showed more inconsistent significance. The week of the term coefficient reports a significant but negligible negative relationship with attendance, while the finals week variable predictably reports lower attendance. 
