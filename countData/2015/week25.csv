@@ -1,0 +1,20 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Jun 14, 2015 12:00 AM to Sat, Jun 20, 2015 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,0,0,9,4,2,0,15
+10:00AM - 10:59AM,85,1,82,71,74,68,0,381
+11:00AM - 11:59AM,56,4,75,106,84,86,0,411
+12:00PM - 12:59PM,70,0,86,99,97,87,0,439
+1:00PM - 1:59PM,62,0,72,72,83,82,0,371
+2:00PM - 2:59PM,82,1,97,70,80,68,0,398
+3:00PM - 3:59PM,97,0,96,94,70,86,0,443
+4:00PM - 4:59PM,72,0,155,107,104,106,0,544
+5:00PM - 5:59PM,52,0,132,145,155,100,0,584
+6:00PM - 6:59PM,67,0,87,117,117,114,0,502
+7:00PM - 7:59PM,23,0,25,36,28,29,0,141
+8:00PM - 8:59PM,0,1,0,0,0,0,0,1
+Totals:,666,7,907,926,896,828,0,4230
+"Mon, Feb 17 2025 10:01A",,,,,,,,Page: 1/1
