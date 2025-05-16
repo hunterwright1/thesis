@@ -1,0 +1,19 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Sep 10, 2017 12:00 AM to Sat, Sep 16, 2017 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,1,1,0,0,0,0,2
+10:00AM - 10:59AM,0,126,106,130,89,116,0,567
+11:00AM - 11:59AM,0,144,117,107,86,100,0,554
+12:00PM - 12:59PM,0,132,112,111,104,75,0,534
+1:00PM - 1:59PM,0,92,88,75,61,66,0,382
+2:00PM - 2:59PM,0,82,70,80,77,82,0,391
+3:00PM - 3:59PM,0,72,80,98,67,67,0,384
+4:00PM - 4:59PM,0,166,112,99,93,85,0,555
+5:00PM - 5:59PM,0,207,193,161,151,95,0,807
+6:00PM - 6:59PM,0,137,114,138,77,68,0,534
+7:00PM - 7:59PM,0,42,23,24,40,27,0,156
+Totals:,0,1201,1016,1023,845,781,0,4866
+"Mon, Feb 17 2025 11:23A",,,,,,,,Page: 1/1

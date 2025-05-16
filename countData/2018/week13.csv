@@ -1,0 +1,19 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Mar 25, 2018 12:00 AM to Sat, Mar 31, 2018 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+9:00AM - 9:59AM,0,0,5,0,0,0,0,5
+10:00AM - 10:59AM,0,121,100,108,100,108,0,537
+11:00AM - 11:59AM,0,93,101,96,75,96,0,461
+12:00PM - 12:59PM,0,191,80,81,65,69,0,486
+1:00PM - 1:59PM,0,111,60,62,62,58,0,353
+2:00PM - 2:59PM,0,85,65,72,66,75,0,363
+3:00PM - 3:59PM,0,81,76,82,73,99,0,411
+4:00PM - 4:59PM,0,130,83,92,99,125,0,529
+5:00PM - 5:59PM,0,116,130,137,108,118,0,609
+6:00PM - 6:59PM,0,109,96,97,101,94,0,497
+7:00PM - 7:59PM,0,18,27,35,26,19,0,125
+Totals:,0,1055,823,862,775,861,0,4376
+"Wed, Feb 26 2025 2:47P",,,,,,,,Page: 1/1

@@ -1,0 +1,11 @@
+Usage By Hour And Day,,,,,,,,
+Parameters,,,,,,,,
+"Sun, Sep 2, 2018 12:00 AM to Sat, Sep 8, 2018 11:59 PM",,,,,,,,
+Readers: All Readers,,,,,,,,
+"Days of the week: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",,,,,,,,
+Hour,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Total
+11:00AM - 11:59AM,0,0,0,0,0,5,0,5
+2:00PM - 2:59PM,0,0,0,15,0,0,0,15
+4:00PM - 4:59PM,0,0,0,2,1,0,0,3
+Totals:,0,0,0,17,1,5,0,23
+"Wed, Feb 26 2025 2:38P",,,,,,,,Page: 1/1
