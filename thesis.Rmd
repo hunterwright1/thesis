@@ -40,32 +40,14 @@ Notes:
 
 # Introduction
 
-The University of Oregon’s Student Recreation Center (SRC) is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends.
+The health and fitness industry has seen substantial growth since COVID-19 pandemic restrictions lifted. According to the 2024 Health and Fitness Association Global Report, key developed markets around the world are seeing record high rates of gym memberships among their adult population. The United States leads with 23.7% of surveyed adults saying they belonged to a gym or health club. On top of this, markets with historically lower participation are seeing record growth as health and fitness enters the forefront of the public consciousness. However, having a gym membership and actually going to the gym are two different things.
 
-On any given day of the week, a student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. For faculty and other community members, the same responsibilities are present, oftentimes with additional familial duties. According to the SRC website, “The Student Recreation Center is consistently busy Monday–Thursday during the term…Friday–Sunday, the Rec has much less traffic.” Most individuals have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time? In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students, faculty, and other SRC patrons display behaviors consistent with the behavioral economics concepts of present bias and loss aversion.
+The field of behavioral economics primarily focuses on how individuals make risky decisions with monetary payoffs. Should someone spend their paycheck or invest it? What does an individual expect to gain from buying a lottery ticket? Money, or capital is a scarce resource that agents must take into account when making decisions that affect their future. In this thesis, I look to explore how agents make decisions with another scarce resource: time. While there is a wide disparity in wealth, where decisions involving money are more important to some than others, everyone has the same 24 hours in a day, and must make risky decisions based on that constant. One of the main purposes taking classes at a university is to develop a students' education, skills, general knowledge, health and life experience. In economics, these are considered useful personal attributes and are known as **human capital**. College students look to develop their human capital taking classes, joining clubs, doing internships, and exercising, among many other things. All of these activities take time though, and a rational student must make important decisions on how to spend that time. On any given day of the week, a college student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. 
 
-```{r Attendance Plot, fig.height=3, fig.width=5, fig.align = 'center'}
-.plot2024 <- count %>%
-  mutate(year = year(date)) %>%
-  filter(year == 2024) %>%
-  mutate(week = floor_date(date, "week", week_start = 1)) %>%
-  group_by(week) %>% 
-  summarise(avg_total = mean(total, na.rm = TRUE), .groups = "drop") %>% 
-  ggplot(aes(week, avg_total)) +
-  geom_line() +
-    labs(x = NULL,
-         y = "Average Daily Visits",
-         title = "Weekly Average Gym Attendance – 2024") +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 10, face = "bold"),
-    plot.subtitle = element_text(size = 7),
-    axis.title = element_text(size = 10),
-    axis.text = element_text(size = 7)
-  )
+According to the University of Oregon's Student Recreation Center (SRC) website, “The Student Recreation Center is consistently busy Monday–Thursday during the term… Friday–Sunday, the Rec has much less traffic.” Most students have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time? In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students display behaviors consistent with the behavioral economics concepts of present bias and loss aversion when choosing whether or not to go to the gym.
 
-.plot2024
-```
+After regressing gym attendance on variables like day of the week, season, and term, controlling for variables like previous day's attendance and membership type, I find statistically significant negative relationships across all time variables. This indicates that across time periods like weeks, months, and terms, attendance starts high and then decreases at varying rates as the time period elapses. These results reinforce the ideas that students at the University of Oregon are showing patterns of present bias and loss aversion in their intertemporal decision making with respect to gym attendance.
+
 
 ### Literature Review
 
@@ -83,35 +65,48 @@ $$\mathbb{E}[B] \;=\; 1.0 \times 450 \;=\; \$450$$
 
 Kahneman and Tversky found that most participants selected choice B, even though $\mathbb{E}[A] > \mathbb{E}[B]$, illustrating a systematic departure from the standard economic assumption of utility maximization under risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on time as another form of currency, where students risk their academic success based on their use of time. Other similar literature related to gym attendance focuses mainly on incentives. Incentives are another behavioral economic concept originating from Nudge Theory in a book Nudge: Improving Decisions About Health, Wealth, and Happiness by Thaler and Sunstein (2008). For example, Habla and Muller found increases in weekly exercise frequency from members that received weekly email reminders.
 
-# Background
+In discussing behavioral economic concepts I use in for my analysis, I reference
+
+- Thaler, R. H., Tversky, A., Kahneman, D., & Schwartz, A. (1997). The effect of myopia and loss aversion on risk taking: An experimental test.
+
+- Tversky, Amos; Kahneman, Daniel (1991). Loss Aversion in Riskless Choice: A Reference-Dependent Model
+
+
+
+# Concepts in Behavioral Economics Theory
 
 Behavioral economics is the study of how people in the real world approach decisions in an irrational manner. Contrary to what standard model economics believes, people don't disregard emotion, habit, and other feelings when making decisions. Though behavioral economics primarily focuses on how individuals make decisions with limited money, this thesis shows that individuals may treat limited time in a similar manner.  
 
 ### The Standard Economic Model
 
-The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day. With so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. However, as the graph below shows, this tends not to be the case.
+The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day, and with so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. However, as Figure 1 shows, this tends not to be the case.
 
-```{r week 3 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
+```{r average fall 2024 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
+
 count %>%
   mutate(year = year(date)) %>%
-  filter(year == 2024) %>%
-  filter(month == "October") %>%
-  filter(week == 3) %>%
-  ggplot(aes(x = date, y = total)) + 
+  filter(year == 2024,
+         quarter == "Fall") %>%
+  group_by(day) %>%
+  summarize(average = mean(total, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(
+    day = factor(day,
+                     levels = c("Monday","Tuesday","Wednesday",
+                                "Thursday","Friday","Saturday","Sunday"))
+  ) %>%
+  ggplot(aes(x = day, y = average, group = 1)) + 
   geom_line() +
   geom_point(size = 2) +
   scale_y_continuous(labels = comma_format()) +
-  scale_x_date(date_breaks = "1 day",
-               date_labels = "%A") +
   labs(
     x = NULL,
     y = "Attendance",
-    title = "Week 3 Gym Attendance, Fall 2024",
-    subtitle = "October 14 – 20, 2024"
+    title = "Figure 1: Average Daily Gym Attendance, Fall 2024"
   ) +
   theme_bw() +
   theme(
-    plot.title = element_text(size = 10, face = "bold"),
+    plot.title = element_text(size = 10),
     plot.subtitle = element_text(size = 7),
     axis.title = element_text(size = 10),
     axis.text = element_text(size = 7)
@@ -121,11 +116,11 @@ count %>%
 
 ### Present Bias
  
-Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place less value on choices with future rewards, even if they are greater than present rewards. This is known as **present bias**. For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. 
+Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place less value on choices with future rewards, even if they are greater than present rewards. This is known as **present bias**. For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. This is a significant departure from the standard economic model's prediction, which interprets this behavior as irrational.
 
 ### Loss Aversion (in progress)
 
-Loss aversion stems from an agent's perceived utility from loss and gains relative to a reference point.
+Loss aversion stems from an agent's perceived utility from losses and gains relative to a reference point. A reference
 
 Weekend reference point: relaxation. 
 utility from exercise is not enough to deviate from relaxation => lower attendance
@@ -135,21 +130,9 @@ no utility loss from exercise during the week as reference point is hard work =>
 
 # Data
 
-Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19. Students make up about 93% of daily gym attendees on average. 
+The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
 
-- talk about discrepancy between two data sets
-- talk about possible data collection issues.
-
-```{r student proportion calculation, include=FALSE}
-members %>%
-  summarize(
-    meanStudents = mean(students),
-    meanTotal = mean(total),
-    averageproportion = meanStudents/meanTotal
-  )
-```
-
-```{r summary statistics}
+```{r count summary statistics table}
 
 # closed days are removed
 .summary_stats <- count_open %>%
@@ -167,6 +150,48 @@ kable(.summary_stats, caption = "Summary Statistics") %>%
   row_spec(1, align = "c")
 ```
 
+Table 2 shows the average daily proportion of members. Students make up the vast majority of the SRC's daily entrants, which is why most of the analysis is targeted towards their behavior. It should be noted that "Off-Term Students" are simply students who are not regarded as full-time students because they are taking less than 12 credits of classes. This number is skewed by the heavy increase in this membership type that occurs every summer when students continue to use the SRC while on summer break.
+
+```{r membership summary statistics table}
+
+members_open <- members %>%
+  filter(closed == 0)
+
+.member_columns <- c("students", "student_offterm", "faculty_staff", "pe_staff", "alumni", "nonmembers", "community_members", "other")
+
+.mem_sumstats <- members_open %>% 
+  summarise(
+    across(all_of(.member_columns),
+           ~ mean(.x / total, na.rm = TRUE)) 
+  ) %>%
+  rename("Student" = students,
+         "Faculty/Staff" = faculty_staff,
+         "PE Staff" = pe_staff,
+         "Alumni" = alumni,
+         "Nonmember" = nonmembers,
+         "Community Member" = community_members,
+         "Off-Term Student" = student_offterm,
+         "Other" = other) %>% 
+  pivot_longer(everything(),
+               names_to  = "Membership Type",
+               values_to = "Average Daily Share") %>% 
+  mutate(`Average Daily Share` = percent(`Average Daily Share`, accuracy = 0.1)) %>%
+  arrange(desc(`Average Daily Share`))
+
+
+# need to fix row separations
+kable(.mem_sumstats, caption = "Average Daily Entrances by Member") %>%
+  kable_styling(full_width = FALSE) %>%
+  row_spec(0:8, align = "c")
+```
+
+Two data sets were collected and used for this analysis. The first displayed simple daily totals grouped by time of day, while the other displayed these totals grouped by membership type. The majority of the analysis, plots and tables were produced using the first data set. The second data set was used for its own analysis, which is labeled. 
+
+There is a discrepancy in daily total entrances between the data sets. For some unknown reason, the membership data set tends to under count daily entrances, averaging about 277 fewer entrances a day, which is why it is only used for its particular analysis section. 
+
+
+- talk about possible data collection issues.
+
 # Methods
 
 For my analysis, I maintain my use of the recorded daily entrances between January 2015 and December 2024, without
@@ -181,7 +206,7 @@ $$
 \;+\; \beta_4\,\text{FinalsWeek}_t \;+\; \beta_5\,\text{DeadWeek}_t \;+\; \varepsilon_t
 $$
 
-Because I'm working with time series data, I conducted several tests to ensure unbiased estimates and satisfy Gauss-Markov assumptions. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
+Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
 # Results
 ```{r first regression, include=FALSE}
@@ -196,18 +221,18 @@ robust <- sqrt(diag(NeweyWest(model, lag = 7)))
 ```
 
 ```{r day regression stargazer, results = "asis"}
-.s1Variables <- c("Constant", "lag\\(total\\)", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday")
+.s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "lag\\(total\\)")
 
 cat("\\begin{center}\n") 
 stargazer(model,
-          type = "latex",
+          type = "text",
           keep = .s1Variables,
           order = .s1Variables,
           se = list(robust),
           keep.stat = c("n", "adj.rsq", "ser", "f"),
           digits = 3,
           dep.var.labels = "Total Attendance",
-          covariate.labels = c("Intercept", "Total Students (t-1)", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
+          covariate.labels = c("Intercept", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total Students (t-1)"),
           title = "Intraweek Effects",
           header = FALSE,
           no.space = TRUE,
@@ -249,4 +274,25 @@ The F-statistic reports a statistically significant value of 780, rejecting the 
 
 
 
+```{r Attendance Plot, fig.align='center', fig.height=3, fig.width=5, include=FALSE}
+.plot2024 <- count %>%
+  mutate(year = year(date)) %>%
+  filter(year == 2024) %>%
+  mutate(week = floor_date(date, "week", week_start = 1)) %>%
+  group_by(week) %>% 
+  summarise(avg_total = mean(total, na.rm = TRUE), .groups = "drop") %>% 
+  ggplot(aes(week, avg_total)) +
+  geom_line() +
+    labs(x = NULL,
+         y = "Average Daily Visits",
+         title = "Weekly Average Gym Attendance – 2024") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 10, face = "bold"),
+    plot.subtitle = element_text(size = 7),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 7)
+  )
 
+.plot2024
+```
