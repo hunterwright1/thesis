@@ -28,8 +28,6 @@ members$date <- as.Date(members$date)
 members_open <- members %>%
   filter(closed == 0)
 
-
-
 count <- count %>%
   mutate(day = fct_relevel(day, "Monday")) %>%
   mutate(month = fct_relevel(month, "October")) %>%
@@ -41,26 +39,13 @@ count_open <- count %>%
   filter(closed == 0)
 ```
 
-Notes:
-
-- expand analysis/interpretation
-- incorporate membership controls
-- how to preview results?
-- add formulas to represent behavioral economics concepts?
-- how to expand literature review?
-- formatting needs fix (last thing to do)
-
-
 # Introduction
 
-The health and fitness industry has seen substantial growth since COVID-19 pandemic restrictions lifted. According to the 2024 Health and Fitness Association Global Report, key developed markets around the world are seeing record high rates of gym memberships among their adult population. The United States leads with 23.7% of surveyed adults saying they belonged to a gym or health club. On top of this, markets with historically lower participation are seeing record growth as health and fitness enters the forefront of the public consciousness. However, having a gym membership and actually going to the gym are two different things.
+The health and fitness industry has seen substantial growth since COVID-19 pandemic restrictions lifted. According to the 2024 Health and Fitness Association Global Report, key developed markets around the world are seeing record high rates of gym memberships among their adult population. The United States leads with 23.7% of surveyed adults saying they belonged to a gym or health club. On top of this, markets with historically lower participation are seeing record growth as health and fitness enters the forefront of the public consciousness. However, having a gym membership and actually going to the gym are two different things. For many, going to the gym consistently is a challenge. It can be expensive and time-consuming, and finding motivation to go often is difficult. College students have a wide variety of responsibilities and commitments that soak up large amounts of time during the week that exacerbate this difficulty. Despite its growing popularity, going to the gym remains a privilege to those that posses the time to spend there.
 
-The field of behavioral economics primarily focuses on how individuals make risky decisions with monetary payoffs. Should someone spend their paycheck or invest it? What does an individual expect to gain from buying a lottery ticket? Money, or capital is a scarce resource that agents must take into account when making decisions that affect their future. In this thesis, I look to explore how agents make decisions with another scarce resource: time. While there is a wide disparity in wealth, where decisions involving money are more important to some than others, everyone has the same 24 hours in a day, and must make risky decisions based on that constant. One of the main purposes taking classes at a university is to develop a students' education, skills, general knowledge, health and life experience. In economics, these are considered useful personal attributes and are known as **human capital**. College students look to develop their human capital taking classes, joining clubs, doing internships, and exercising, among many other things. All of these activities take time though, and a rational student must make important decisions on how to spend that time. On any given day of the week, a college student might have class, work, homework, and other responsibilities that take up most of their day. Coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. 
+The field of behavioral economics primarily focuses on how individuals make risky decisions with monetary payoffs. Should someone spend their paycheck or invest it? What does an individual expect to gain from buying a lottery ticket? Money, or capital is a scarce resource that agents must take into account when making decisions that affect their future. In this thesis, I look to explore how agents make decisions with another scarce resource: time. While there is a wide disparity in wealth, where decisions involving money are more important to some than others, everyone has the same 24 hours in a day, and must make risky decisions based on that constant. One of the main purposes taking classes at a university is to develop a students' education, skills, general knowledge, health and life experience. In economics, these are considered useful personal attributes and are known as *human capital*. College students look to develop their human capital by taking classes, joining clubs, doing internships, and exercising, among many other things. All of these activities take time, and a rational student must make important decisions on how to spend that time. On any given day of the week, a college student might have class, work, homework, and other responsibilities that take up most of their day, and coupled with basic tasks like eating and traveling, many students find their only free time on the weekends. According to the University of Oregon's Student Recreation Center (SRC) website, “The Student Recreation Center is consistently busy Monday–Thursday during the term… Friday–Sunday, the Rec has much less traffic.” Most students have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when students have more time to go? In this thesis, I analyze short and long-term trends in SRC attendance to discuss how students display behaviors consistent with the behavioral economics concepts of mental accounting, present bias, and loss aversion when choosing whether or not to go to the gym. 
 
-According to the University of Oregon's Student Recreation Center (SRC) website, “The Student Recreation Center is consistently busy Monday–Thursday during the term… Friday–Sunday, the Rec has much less traffic.” Most students have busy schedules during the week, and much more time on the weekend, so why does SRC traffic decrease when individuals have more time? In this thesis, I look to analyze short and long-term trends in SRC attendance to discuss how students display behaviors consistent with the behavioral economics concepts of mental accounting, present bias, and loss aversion when choosing whether or not to go to the gym. 
-
-After regressing gym attendance on variables like day of the week, season, and term, controlling for variables like previous day's attendance and membership type, I find statistically significant negative relationships across all time variables. This indicates that across time periods like weeks, months, and terms, attendance starts high and then decreases at varying rates as the time period elapses. These results reinforce the ideas that students at the University of Oregon are showing patterns of present bias and loss aversion in their intertemporal decision making with respect to gym attendance.
-
+After regressing gym attendance on variables like day of the week, season, and term, controlling for variables like previous day's attendance and membership type, I find statistically significant negative relationships in both short and long-term contexts. This indicates that across time periods like weeks, months, and terms, attendance starts high and then decreases at varying rates as the time period elapses. These results reinforce the ideas that students at the University of Oregon are showing patterns of present bias and loss aversion in their intertemporal decision making with respect to gym attendance.
 
 ### Literature Review
 
@@ -68,9 +53,7 @@ The primary literature relating to this thesis is Prospect Theory: An Analysis o
 
 The concept of mental accounting was first developed by Richard Thaler in his 1985 paper "Mental Accounting and Consumer Choice." Thaler introduces a theory that explains how individuals make irrational decisions when spending money because they don't treat money as fungible. Present bias was formally introduced in "Doing It Now or Later" by O'Donoghue and Rabin (1999).  The authors described "the human tendency to grab immediate rewards and to avoid immediate costs in a way that our 'long-run selves' do not appreciate." They called this tendency **present-biased preferences**, and partially attributed it to impatience. The concept of loss aversion was first introduced in Kahneman and Tversky's "Prospect Theory," but further refined in "Loss Aversion in Riskless Choice: A Reference-Dependent Model" by Tversky et. al (1991). 
 
-Other similar literature related to gym attendance focuses mainly on incentives. Incentives are another behavioral economic concept originating from Nudge Theory in the book Nudge: Improving Decisions About Health, Wealth, and Happiness by Thaler and Sunstein (2008).
-
-- Add DellaVigna, Stefano and Ulrike Malmendier. 2006. "Paying Not to Go to the Gym."
+Other similar literature related to gym attendance focus mainly on individuals' tendency to overstimate their future attendance. DellaVigna and Malmendier (2006) found that people who bought monthly memberships tended to go infrequently and indirectly pay more per vist than if they had bought a 10 day pass. They also found that monthly membership customers were more likely than yearly members to continue their membership for longer than a year, despite paying premiums for the option to cancel month by month. Acland and Levy (2015) reported that subjects in their experiment exhibited "evidence of partial naiveté with respect to present bias" when making projections about their future gym attendance. The subjects similarly overestimated their future attendance. 
 
 # Concepts in Behavioral Economics Theory
 
@@ -113,11 +96,11 @@ members %>%
 
 ### Mental Accounting
 
-At the beginning of his paper, "Mental Accounting and Consumer Choice," Thaler describes a hypothetical situation where two couples receive a sum of `$`300 from an airline after the airline lost some of their luggage. The couples then spend `$`225 on dinner, which they've never done before. Thaler claims that the couples have violated the monetary principle of fungibility. He argues that if the `$`300 had instead been received from salary raises, they would not have spent so much on a dinner, even though they would be earning more in the long run. In this thesis, I look to expand this definition to how students view time. Much like money, time is a scarce resource especially for busy college students. Students show behavior consistent with mental accounting when it comes to spending that time, by budgeting time during the week for difficult activities like going to to the gym, studying, and going to class, while saving weekends for relaxation and other recreation. 
+At the beginning of his paper, "Mental Accounting and Consumer Choice," Thaler describes a hypothetical situation where two couples receive a sum of `$`300 from an airline after the airline lost some of their luggage. The couples then spend `$`225 on dinner, which they've never done before. Thaler claims that the couples have violated the monetary principle of fungibility. He argues that if the `$`300 had instead been received from salary raises, they would not have spent so much on a dinner, even though they would be earning more in the long run. The couples have essentially treated this money as "special" because it was received from the airline when they should have treated it like any other increase in wealth. In this thesis, I look to expand this definition to how students view time. Much like money, time is a scarce resource, especially for busy college students. Students show behavior consistent with mental accounting when it comes to spending that time, by budgeting time during the week for difficult activities like going to to the gym, studying, and going to class, while saving weekends for relaxation and other recreation. 
 
 ### Present Bias
  
-Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place disproportionately less value on future rewards, even if they are greater than present rewards. This is known as **present bias**, formally introduced by  O'Donoghue and Rabin in the 1999 paper "Doing It Now or Later." For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account, even though investing will ultimately net them more utility in the future. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. This is a significant departure from the standard economic model's prediction, which interprets this behavior as irrational.
+Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place disproportionately less value on future rewards, even if they are greater than present rewards. This is known as *present bias*, formally introduced by  O'Donoghue and Rabin in the 1999 paper "Doing It Now or Later." For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account, even though investing will ultimately net them more utility in the future. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. This is a significant departure from the standard economic model's prediction, which interprets this behavior as irrational.
 
 ### Loss Aversion
 
@@ -135,7 +118,7 @@ Here, $x$ represents the gain ($x>0$) or loss ($x < 0$) relative to the referenc
 
 # Data
 
-The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
+The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 82% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19. A day was marked as 'closed' if no students entered the gym on a particular day.
 
 ```{r all students summary statistics table}
 
@@ -214,26 +197,16 @@ options(scipen = 2)
 
 .model1 <- lm(all_students ~ lag(all_students) + day + week + quarter + day_after_closed + finals_week + dead_week, members_open)
 
-#adding a lag reduced AR(1)
-# tidy(.model1)
-# tidy(.model0)
-# view(.robust0)
-# view(.robust1)
-
 .robust0 <- sqrt(diag(NeweyWest(.model0, lag = 7)))
 .robust1 <- sqrt(diag(NeweyWest(.model1, lag = 7)))
 
 .s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "lag\\(all_students\\)")
 
-.robust0_pad <- setNames(rep(NA, length(.s1Variables)), .s1Variables)
-.robust0_pad[names(.robust0)] <- .robust0
-
-
 ```
 
-```{r day regression stargazer, results = "asis"}
+Both tables represent two sets of predictors from the same model. The first one reports week fixed effects with and without a one day lagged variable, representing short term trends in attendance. The second table reports week of the term and quarter fixed effects, controlling for finals week and the week before finals week, with and without a one day lagged variable. This represents attendance trends over a longer term, as each quarter of the academic year at the University of Oregon is 11 weeks, or 12 in the summer.
 
-
+```{r day by day regression stargazer, results = "asis"}
 cat("\\begin{center}\n") 
 stargazer(.model0, .model1,
           type = "latex",
@@ -252,35 +225,28 @@ stargazer(.model0, .model1,
 cat("\\end{center}\n")
 ```
 
-Controlling for AR(1) persistence, the model predicts a statistically significant monotonic decline as the week progresses. The intercept, representing a Monday in fall term, not during finals/dead week, and not after a closure, expects 2,779 students on average, that declines to an intraweek low on Saturday. The lagged attendance variable predicts that 75% of Monday's "surprise", if any, carries on to the next day. For example, if there are 1,000 more patrons on Monday, we expect ~750 more than expected on Tuesday. These outcomes reinforce the idea that gym patrons are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, gym attendees are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable. 
-
+The lagless model shows a strong statistically significant negative drop in attendance as the week progresses, culminating in a more than 2,000 student difference in attendance between Monday and Saturday. Using the lag to account for strong AR(1) persistence, the second model finds even steeper results. The intercept, representing a Monday in fall term, not during finals/dead week, and not after a closure, expects 2,404 students on average, that declines to an intraweek low on Saturday. The lagged attendance variable predicts that about 72% of the previous day's "surprise", if any, carries on to the next day. For example, if there are 1,000 more entrants on Monday than usual, we expect ~724 more than usual on Tuesday. Controlling for this "habit" raises Adj. $R^2$ from 0.7 to 0.87, indicating that yesterday's turnout is a strong predictor for today's but isn't able to carry the prediction alone. These coefficients reinforce the idea that college students are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, students are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable (the weekend). 
 
 ```{r quarter regression stargazer, results = "asis"}
-.s2Variables <- c("Constant", "week", "dead_week", "finals_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer")
+.s2Variables <- c("Constant", "week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer", "dead_week", "finals_week", "lag\\(all_students\\)")
 
 cat("\\begin{center}\n") 
-stargazer(.model1,
+stargazer(.model0, .model1,
           type = "latex",
           keep = .s2Variables,
           order = .s2Variables,
-          se = list(.robust1),
+          se = list(.robust0, .robust1),
           keep.stat = c("n", "adj.rsq", "ser", "f"),
           digits = 3,
           dep.var.labels = "Total Attendance",
-          covariate.labels = c("Intercept", "Week of the Term", "Finals Week", "Week Before Finals", "Break", "Winter", "Spring", "Summer"),
+          column.labels = c("No Lag", "With Lag"),
+          covariate.labels = c("Intercept", "Week of the Term", "Break", "Winter", "Spring", "Summer", "Finals Week", "Week Before Finals", "Lagged Student Attendance (t-1)"),
           title = "Long Term Effects",
           header = FALSE,
           no.space = FALSE,
           float = FALSE)
 cat("\\end{center}\n")
 ```
-
-Longer term effects showed more inconsistent significance. The week of the term coefficient reports a significant but negligible negative relationship with attendance, while the finals week variable predictably reports lower attendance. 
-
-
-
-
-The F-statistic reports a statistically significant value of 780, rejecting the null hypothesis that all coefficients are zero.  Coupled with an adjusted $R^2$ of 0.872, this model accounts for a substantial share of day to day variation in gym attendance.
 
 # Conclusion
 
@@ -308,3 +274,17 @@ The F-statistic reports a statistically significant value of 780, rejecting the 
 
 .plot2024
 ```
+
+# Citations
+
+Acland, D., & Levy, M. R. (2015). Naiveté, projection bias, and habit formation in gym attendance. Management Science, 61(1), 146–160.
+
+DellaVigna, Stefano and Ulrike Malmendier. (2006). "Paying Not to Go to the Gym." American Economic Review, 96 (3): 694–719.
+
+Kahneman, D., & Tversky, A. (1979). Prospect theory: An analysis of decision under risk. Econometrica, 47(2), 263-291.
+
+O'Donoghue, Ted, and Matthew Rabin. (1999). "Doing It Now or Later." American Economic Review 89 (1): 103–124.
+
+Thaler, Richard. (1985). Mental Accounting and Consumer Choice. Marketing Science, 4(3), 199–214.
+
+Tversky, Amos, & Daniel Kahneman. (1991). Loss Aversion in Riskless Choice: A Reference-Dependent Model. The Quarterly Journal of Economics, 106(4), 1039–1061.
