@@ -17,7 +17,19 @@ members <- read.csv("cleanData/membership.csv")
 ```
 ```{r factor releveling, include=FALSE}
 members <- members %>%
-  mutate(day = fct_relevel(day, "Monday"))
+  mutate(day = fct_relevel(day, "Monday")) %>%
+  mutate(month = fct_relevel(month, "October")) %>%
+  mutate(quarter = fct_relevel(quarter, "Fall")) %>%
+  mutate(all_students = students + student_offterm) %>%
+  relocate(all_students, .after = student_offterm)
+
+members$date <- as.Date(members$date)
+
+members_open <- members %>%
+  filter(closed == 0)
+
+
+
 count <- count %>%
   mutate(day = fct_relevel(day, "Monday")) %>%
   mutate(month = fct_relevel(month, "October")) %>%
@@ -52,10 +64,13 @@ After regressing gym attendance on variables like day of the week, season, and t
 
 ### Literature Review
 
-The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk, by Kahneman and Tversky (1979). This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on the scarcity of time as another form of currency, where students risk the development of their human capital based on how they utilize limited time. Other similar literature related to gym attendance focuses mainly on incentives. Incentives are another behavioral economic concept originating from Nudge Theory in the book Nudge: Improving Decisions About Health, Wealth, and Happiness by Thaler and Sunstein (2008).
+The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk, by Kahneman and Tversky (1979). This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on the scarcity of time as another form of currency, where students risk the development of their human capital based on how they utilize limited time. 
 
-In discussing present bias in the Concepts section, I reference "Doing It Now or Later" by O'Donoghue and Rabin (1999), where the concept was formally introduced. For loss aversion, I reference "Loss Aversion in Riskless Choice: A Reference-Dependent Model" by Tversky et. al (1991) and "The effect of myopia and loss aversion on risk taking: An experimental test" by Thaler et. al (1997).
+The concept of mental accounting was first developed by Richard Thaler in his 1985 paper "Mental Accounting and Consumer Choice." Thaler introduces a theory that explains how individuals make irrational decisions when spending money because they don't treat money as fungible. Present bias was formally introduced in "Doing It Now or Later" by O'Donoghue and Rabin (1999).  The authors described "the human tendency to grab immediate rewards and to avoid immediate costs in a way that our 'long-run selves' do not appreciate." They called this tendency **present-biased preferences**, and partially attributed it to impatience. The concept of loss aversion was first introduced in Kahneman and Tversky's "Prospect Theory," but further refined in "Loss Aversion in Riskless Choice: A Reference-Dependent Model" by Tversky et. al (1991). 
 
+Other similar literature related to gym attendance focuses mainly on incentives. Incentives are another behavioral economic concept originating from Nudge Theory in the book Nudge: Improving Decisions About Health, Wealth, and Happiness by Thaler and Sunstein (2008).
+
+- Add DellaVigna, Stefano and Ulrike Malmendier. 2006. "Paying Not to Go to the Gym."
 
 # Concepts in Behavioral Economics Theory
 
@@ -67,12 +82,12 @@ The standard economic model predicts that all individuals are rational agents th
 
 ```{r average fall 2024 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
 
-count %>%
+members %>%
   mutate(year = year(date)) %>%
   filter(year == 2024,
          quarter == "Fall") %>%
   group_by(day) %>%
-  summarize(average = mean(total)) %>%
+  summarize(average = mean(all_students)) %>%
   ungroup() %>%
   mutate(
     day = factor(day, levels = c("Monday","Tuesday","Wednesday",
@@ -84,7 +99,7 @@ count %>%
   labs(
     x = NULL,
     y = "Attendance",
-    title = "Figure 1: Average SRC Daily Attendance, Fall 2024"
+    title = "Figure 1: Average SRC Daily Student Attendance, Fall 2024"
   ) +
   theme_bw() +
   theme(
@@ -98,7 +113,7 @@ count %>%
 
 ### Mental Accounting
 
-
+At the beginning of his paper, "Mental Accounting and Consumer Choice," Thaler describes a hypothetical situation where two couples receive a sum of `$`300 from an airline after the airline lost some of their luggage. The couples then spend `$`225 on dinner, which they've never done before. Thaler claims that the couples have violated the monetary principle of fungibility. He argues that if the `$`300 had instead been received from salary raises, they would not have spent so much on a dinner, even though they would be earning more in the long run. In this thesis, I look to expand this definition to how students view time. Much like money, time is a scarce resource especially for busy college students. Students show behavior consistent with mental accounting when it comes to spending that time, by budgeting time during the week for difficult activities like going to to the gym, studying, and going to class, while saving weekends for relaxation and other recreation. 
 
 ### Present Bias
  
@@ -118,33 +133,29 @@ $$
 
 Here, $x$ represents the gain ($x>0$) or loss ($x < 0$) relative to the reference point. $\lambda$ represents the loss aversion coefficient, which acts as a multiplier for negative utility. For a student relaxing on the weekend, $x$ represents the utility difference between relaxing and going to the gym (or doing anything else that represents hard work). If $\lambda > 1$ then the student decides to relax instead of going to the gym. I find the opposite situation to be true during the week, where the reference point is classes, homework, and other responsibilities. During the week, relaxing becomes the loss and hard work like studying and the gym provide more utility. 
 
-### Myopic Loss Aversion
-
-Myopic loss aversion is the combination of mental accounting, present bias, and loss aversion. When an investor is too focused on short term losses, they may make decisions at the expense of long term gains, like panic selling a stock when it crashes in the short term. In their 1997 paper, "The effect of myopia and loss aversion on risk taking: An experimental test," Thaler et al. defined myopic loss aversion as "the combination of a greater sensitivity to losses than to gains and a tendency to evaluate outcomes frequently."
-
 # Data
 
-The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines then record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
+The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 81% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19.
 
-```{r count summary statistics table}
+```{r all students summary statistics table}
 
 # closed days are removed
-.summary_stats <- count_open %>%
+.summary_stats <- members_open %>%
   summarise(
-    Mean = mean(total),
-    Median = median(total),
-    SD = sd(total),
-    Min = min(total),
-    Max = max(total)
+    Mean = mean(all_students),
+    Median = median(all_students),
+    SD = sd(all_students),
+    Min = min(all_students),
+    Max = max(all_students)
   )
 
-kable(.summary_stats, caption = "Summary Statistics") %>%
+kable(.summary_stats, caption = "Student Attendance Summary Statistics") %>%
   kable_styling(full_width = FALSE) %>%
   row_spec(0, align = "c") %>%
   row_spec(1, align = "c")
 ```
 
-Table 2 shows the average daily proportion of members. Students make up the vast majority of the SRC's daily entrants, which is why most of the analysis is targeted towards their behavior. It should be noted that "Off-Term Students" are simply students who are not regarded as full-time students because they are taking less than 12 credits of classes. This number is skewed by the heavy increase in this membership type that occurs every summer when students continue to use the SRC while on summer break.
+Table 2 shows the average daily proportion of members. Students make up the vast majority of the SRC's daily entrants. It should be noted that "Off-Term Students" are simply students who are not regarded as full-time students because they are taking less than 12 credits of classes. This number is skewed by the heavy increase in this membership type that occurs every summer when students continue to use the SRC while on summer break.
 
 ```{r membership summary statistics table}
 
@@ -179,18 +190,11 @@ kable(.mem_sumstats, caption = "Average Daily Entrances by Member") %>%
   row_spec(0:8, align = "c")
 ```
 
-Two data sets were collected and used for this analysis. The first displayed simple daily totals grouped by time of day, while the other displayed these totals grouped by membership type. The majority of the analysis, plots and tables were produced using the first data set. The second data set was used for its own analysis, which is labeled. 
-
-There is a discrepancy in daily total entrances between the data sets. For some unknown reason, the membership data set tends to under count daily entrances, averaging about 277 fewer entrances a day, which is why it is only used for its particular analysis section. 
-
-
-- talk about possible data collection issues.
+Two data sets were collected and used for this analysis. The first displayed simple daily totals grouped by time of day, while the other displayed these totals grouped by membership type. There is a discrepancy in daily total entrances between the data sets, where the membership data set tends to under count daily entrances, averaging about 277 fewer entrances a day. The reason for this is unknown, but it can be reasonably assumed that this discrepancy has a negligible effect on longer term trends and behavior patterns. The membership data is the only data used in this analysis, as student behavior is the only behavior being analyzed. Observations where the SRC is closed for any reason are removed from the analysis.
 
 # Methods
 
-For my analysis, I maintain my use of the recorded daily entrances between January 2015 and December 2024, without
-
-To analyze both short and long‑run attendance dynamics, I regress daily gym patron attendance on lagged attendance, weekday, week‑of‑term, month, quarter, post‑closure status, and finals/dead‑week indicators. 
+To analyze both short and long‑run attendance dynamics, I regress daily student attendance on lagged attendance, weekday, week‑of‑term, month, quarter, post‑closure status, and finals/dead‑week indicators. 
 
 $$
 \hat{\text{total}}_{t} = \beta_0 + \beta_1\,\text{total}_{t-1} \;+\; \sum_{d=1}^{6}\gamma_d\,\text{Day}_{d,t} \;+\;\beta_2\,\text{Week}_t \;+\;
@@ -203,33 +207,47 @@ $$
 Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
 # Results
-```{r first regression, include=FALSE}
+```{r first regression}
+options(scipen = 2)
 
-model <- lm(total ~ lag(total) + day + week + month + quarter + day_after_closed + finals_week + dead_week, count_open)
+.model0  <- lm(all_students ~ day + week + quarter + day_after_closed + finals_week + dead_week, members_open)
+
+.model1 <- lm(all_students ~ lag(all_students) + day + week + quarter + day_after_closed + finals_week + dead_week, members_open)
 
 #adding a lag reduced AR(1)
-summary(model)
+# tidy(.model1)
+# tidy(.model0)
+# view(.robust0)
+# view(.robust1)
 
-.robust <- sqrt(diag(NeweyWest(model, lag = 7)))
+.robust0 <- sqrt(diag(NeweyWest(.model0, lag = 7)))
+.robust1 <- sqrt(diag(NeweyWest(.model1, lag = 7)))
+
+.s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "lag\\(all_students\\)")
+
+.robust0_pad <- setNames(rep(NA, length(.s1Variables)), .s1Variables)
+.robust0_pad[names(.robust0)] <- .robust0
+
 
 ```
 
 ```{r day regression stargazer, results = "asis"}
-.s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "lag\\(total\\)")
+
 
 cat("\\begin{center}\n") 
-stargazer(model,
-          type = "text",
+stargazer(.model0, .model1,
+          type = "latex",
           keep = .s1Variables,
           order = .s1Variables,
-          se = list(.robust),
+          se = list(.robust0, .robust1),
           keep.stat = c("n", "adj.rsq", "ser", "f"),
           digits = 3,
-          dep.var.labels = "Total Attendance",
-          covariate.labels = c("Intercept", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total Students (t-1)"),
+          dep.var.labels = "Student Attendance",
+          column.labels = c("No Lag", "With Lag"),
+          covariate.labels = c("Intercept", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Lagged Student Attendance (t-1)"),
           title = "Intraweek Effects",
           header = FALSE,
-          no.space = TRUE,
+          no.space = FALSE,
           float = FALSE)
 cat("\\end{center}\n")
 ```
@@ -241,18 +259,18 @@ Controlling for AR(1) persistence, the model predicts a statistically significan
 .s2Variables <- c("Constant", "week", "dead_week", "finals_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer")
 
 cat("\\begin{center}\n") 
-stargazer(model,
+stargazer(.model1,
           type = "latex",
           keep = .s2Variables,
           order = .s2Variables,
-          se = list(.robust),
+          se = list(.robust1),
           keep.stat = c("n", "adj.rsq", "ser", "f"),
           digits = 3,
           dep.var.labels = "Total Attendance",
           covariate.labels = c("Intercept", "Week of the Term", "Finals Week", "Week Before Finals", "Break", "Winter", "Spring", "Summer"),
           title = "Long Term Effects",
           header = FALSE,
-          no.space = TRUE,
+          no.space = FALSE,
           float = FALSE)
 cat("\\end{center}\n")
 ```
