@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 
 library(pacman)
-p_load(tidyverse, forcats, kableExtra, stargazer, tseries, lmtest, sandwich, scales)
+p_load(tidyverse, forcats, kableExtra, stargazer, tseries, lmtest, sandwich, scales, broom)
 
 count <- read.csv("cleanData/count.csv")
 members <- read.csv("cleanData/membership.csv")
@@ -25,8 +25,12 @@ members <- members %>%
 
 members$date <- as.Date(members$date)
 
+members <- members %>%
+  mutate(closed = ifelse(students < 10, 1, 0))
+
 members_open <- members %>%
-  filter(closed == 0)
+  filter(closed == 0) %>%
+  rename(term_week = week)
 
 count <- count %>%
   mutate(day = fct_relevel(day, "Monday")) %>%
@@ -138,8 +142,6 @@ Table 2 shows the average daily proportion of members. Students make up the vast
 
 ```{r membership summary statistics table}
 
-members_open <- members %>%
-  filter(closed == 0)
 
 .member_columns <- c("students", "student_offterm", "faculty_staff", "pe_staff", "alumni", "nonmembers", "community_members", "other")
 
@@ -176,44 +178,65 @@ Two data sets were collected and used for this analysis. The first displayed sim
 To analyze both short and long‑run attendance dynamics, I regress daily student attendance on lagged attendance, weekday, week‑of‑term, month, quarter, post‑closure status, and finals/dead‑week indicators. 
 
 $$
-\hat{\text{students}}_{t} = \beta_0 + \beta_1\,\text{students}_{t-1} \;+\; \sum_{d=1}^{6}\gamma_d\,\text{Day}_{d,t} \;+\;\beta_2\,\text{Week}_t
+\hat{\text{attendance}}_{t} = \beta_0 + \beta_1\,\text{attendance}_{t-1} \;+\; \sum_{d=1}^{6}\gamma_d\,\text{Day}_{d,t} \;+\;\beta_2\,\text{Week}_t
 \;+\; \sum_{q=2}^{4}\theta_q\,\text{Quarter}_{q,t}\;+\; \beta_3\,\text{DayAfterClosed}_t
 $$ 
-$$
-\;+\; \beta_4\,\text{FinalsWeek}_t \;+\; \beta_5\,\text{DeadWeek}_t \;+\; \varepsilon_t
-$$
 
-Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
+$$
+\;+\; \beta_4\,\text{DeadWeek}_t \;+\; \beta_5\,\text{FinalsWeek}_t \;+\; \varepsilon_t
+$$
+  The first term in the regression is $\beta_0$, the intercept term. This represents the model’s expected attendance when all other coefficients are equal to zero. $\beta_1$ is the lag term, where t is a subscript for the calendar-day. The coefficient here is a decimal representing what proportion of the previous day's “surprise” or deviation from the expected value is present in today's count. The next term represents day-of-the-week fixed effects: Each day's difference in expected attendance relative to Monday. $\beta_2$ describes the change in students as the quarter progresses. The coefficient represents the change in students on a weekly basis. Next, quarter fixed effects describe the average difference in attendance across different quarters, or terms. There are four quarters, Summer, Fall, Winter, and Spring, and a catch-all, Break, which is active during days that are not a part of any quarter. Fall is the baseline quarter that the other four are compared to. $\beta_3$, $\beta_4$, and $\beta_5$, are all binary variables describing if the SRC was closed the previous day, if it’s dead week (the week before finals week), or finals week respectively. All are equal to one if the requirement is met, and zero if not.
+  Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
 # Results
 ```{r first regression}
 options(scipen = 2)
 
-.model0  <- lm(all_students ~ day + week + quarter + day_after_closed + finals_week + dead_week, members_open)
+# level regressions
+.model0  <- lm(all_students ~ day + term_week + quarter + day_after_closed + finals_week + dead_week, members_open)
 
-.model1 <- lm(all_students ~ lag(all_students) + day + week + quarter + day_after_closed + finals_week + dead_week, members_open)
+.model1 <- lm(all_students ~ lag(all_students) + day + term_week + quarter + day_after_closed + finals_week + dead_week, members_open)
 
+# level robust SEs
 .robust0 <- sqrt(diag(NeweyWest(.model0, lag = 7)))
 .robust1 <- sqrt(diag(NeweyWest(.model1, lag = 7)))
 
-.s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "lag\\(all_students\\)")
+members_open <- members_open %>% 
+  mutate(log_students = log(all_students),
+         lag_log_students = lag(log_students))
 
+.model0_log <- lm(log_students ~ day + term_week + quarter + day_after_closed + finals_week + dead_week, data = members_open)
+
+.model1_log <- lm(log_students ~ lag_log_students + day + term_week + quarter + day_after_closed + finals_week + dead_week, data = members_open)
+
+.robust0_log <- sqrt(diag(NeweyWest(.model0_log, lag = 7)))
+.robust1_log <- sqrt(diag(NeweyWest(.model1_log, lag = 7)))
+
+.s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "^lag")
+
+.s2Variables <- c("Constant", "term_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer", "dead_week", "finals_week")
 ```
-
-Both tables represent two sets of predictors from the same model. The first one reports week fixed effects with and without a one day lagged variable, representing short term trends in attendance. The second table reports week of the term and quarter fixed effects, controlling for finals week and the week before finals week, with and without a one day lagged variable. This represents attendance trends over a longer term, as each quarter of the academic year at the University of Oregon is 11 weeks, or 12 in the summer.
+         
+Both tables represent two sets of predictors from the same model. The first one reports day-of-the-week fixed effects with and without a one day lagged variable, representing short term trends in attendance. The second table reports week of the term and quarter fixed effects, the dead week, and finals week dummies, with and without a one day lagged variable. This represents attendance trends over a longer term, as each quarter of the academic year at the University of Oregon is 11 weeks, or 12 in the summer.
 
 ```{r day by day regression stargazer, results = "asis"}
-cat("\\begin{center}\n") 
-stargazer(.model0, .model1,
+cat("\\begin{center}\n")
+stargazer(.model0,        
+          .model1,
+          .model0_log,
+          .model1_log,
           type = "latex",
           keep = .s1Variables,
           order = .s1Variables,
-          se = list(.robust0, .robust1),
-          keep.stat = c("n", "adj.rsq", "ser", "f"),
+          se = list(.robust0, .robust1, .robust0_log, .robust1_log),
+          keep.stat = c("n", "adj.rsq"),
           digits = 3,
-          dep.var.labels = "Student Attendance",
-          column.labels = c("No Lag", "With Lag"),
-          covariate.labels = c("Intercept", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Lagged Student Attendance (t-1)"),
+          dep.var.labels = c("Student Attendance", "Log Student Attendance"),
+          column.labels = c("No Lag",
+                            "With Lag",
+                            "No Lag",
+                            "With Lag"),
+          covariate.labels = c("Intercept", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Lagged Student Attendance (t-1)", "Lagged log-Attendance (t-1)"),
           title = "Intraweek Effects",
           header = FALSE,
           no.space = FALSE,
@@ -224,27 +247,25 @@ cat("\\end{center}\n")
 The lagless model shows a strong statistically significant negative drop in attendance as the week progresses, culminating in a more than 2,000 student difference in attendance between Monday and Saturday. Using the lag to account for strong AR(1) persistence, the second model finds even steeper results. The intercept, representing a Monday in fall term, not during finals/dead week, and not after a closure, expects 2,404 students on average, that declines to an intraweek low on Saturday. The lagged attendance variable predicts that about 72% of the previous day's "surprise", if any, carries on to the next day. For example, if there are 1,000 more entrants on Monday than usual, we expect ~724 more than usual on Tuesday. Controlling for this "habit" raises Adj. $R^2$ from 0.7 to 0.87, indicating that yesterday's turnout is a strong predictor for today's but isn't able to carry the prediction alone. These coefficients reinforce the idea that college students are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, students are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable (the weekend). 
 
 ```{r quarter regression stargazer, results = "asis"}
-.s2Variables <- c("Constant", "week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer", "dead_week", "finals_week", "lag\\(all_students\\)")
-
 cat("\\begin{center}\n") 
-stargazer(.model0, .model1,
+star2 <- stargazer(.model0, .model1, .model0_log, .model1_log,
           type = "latex",
-          keep = .s2Variables,
           order = .s2Variables,
-          se = list(.robust0, .robust1),
-          keep.stat = c("n", "adj.rsq", "ser", "f"),
+          keep = .s2Variables,
+          se = list(.robust0, .robust1, .robust0_log, .robust1_log),
+          keep.stat = c("n", "adj.rsq"),
           digits = 3,
-          dep.var.labels = "Total Attendance",
-          column.labels = c("No Lag", "With Lag"),
-          covariate.labels = c("Intercept", "Week of the Term", "Break", "Winter", "Spring", "Summer", "Finals Week", "Week Before Finals", "Lagged Student Attendance (t-1)"),
-          title = "Long Term Effects",
+          dep.var.labels = c("Student Attendance", "Log Student Attendance"),
+          column.labels = c("No Lag", "With Lag", "No Lag", "With Lag"),
+          covariate.labels = c("Intercept", "Week of the Term", "Break", "Winter", "Spring", "Summer", "Week Before Finals", "Finals Week"),
+          title = "Long Term Trends",
           header = FALSE,
           no.space = FALSE,
           float = FALSE)
 cat("\\end{center}\n")
 ```
 
-Long term trends, while still mostly significant, are much weaker in comparison to day by day changes. Controlling for AR(1) persistence, there are sizable coefficients on break, spring, and week before finals variables. Break understandably sees a sizable drop in attendance as many students go home. Spring quarter in Eugene is notorious for students missing classes, going outside, and enjoying the sun, which explains the negative relationship. The week before finals estimate of -591 is consistent with the concept of loss aversion. The opportunity cost of all hours during the week before finals is much higher as students grind in preparation for finals. Weakly significant but negligible estimates constitute the rest of the table.
+Long term trends, while still mostly significant, are much weaker in comparison to day by day changes. Controlling for AR(1) persistence, there are sizable coefficients on break, spring, and finals week variables. Break understandably sees a sizable drop in attendance as many students go home. Spring quarter in Eugene is notorious for students missing classes, going outside, and enjoying the sun, which explains the negative relationship. Understandably, the finals week estimate is -572, which correlates with students schedules being dominated by studying and preparation for finals. The opportunity cost of all hours during finals week is much higher, leading to lower attendance on average. Weakly significant but negligible estimates constitute the rest of the table.
 
 
 # Conclusion
@@ -287,3 +308,9 @@ O'Donoghue, Ted, and Matthew Rabin. (1999). "Doing It Now or Later." American Ec
 Thaler, Richard. (1985). Mental Accounting and Consumer Choice. Marketing Science, 4(3), 199–214.
 
 Tversky, Amos, & Daniel Kahneman. (1991). Loss Aversion in Riskless Choice: A Reference-Dependent Model. The Quarterly Journal of Economics, 106(4), 1039–1061.
+
+“The 2024 HFA Global Report.” Health & Fitness Association, https://www.healthandfitness.org/publications/the-2024-hfa-global-report/.
+
+Bradley, Jordyn. “Is Your Gym Overflowing? A New Study Shows Gym Use Is Nearly Double Pre-Pandemic Levels and Gen Z Is Driving the Trend.” Fortune Well, https://fortune.com/well/article/gym-use-increase-pandemic-gen-z/.
+
+
