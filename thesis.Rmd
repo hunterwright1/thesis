@@ -100,27 +100,9 @@ members %>%
 
 ```
 
-### Mental Accounting
-
-At the beginning of his paper outlining mental accounting, Thaler describes a hypothetical situation where two couples receive a sum of `$`300 from an airline after the airline lost some of their luggage. The couples then spend `$`225 on dinner, which they've never done before. Thaler claims that the couples have violated the monetary principle of fungibility by treating this money as "special." He argues that if the `$`300 had instead been received from salary raises, they would not have spent so much on a dinner, even though they would be earning more in the long run. The couples have essentially treated this money as "special" because it was received from the airline when they should have treated it like any other increase in wealth. In this thesis, I look to expand this definition to how students view time. Much like money, time is a scarce resource, especially for busy college students. Students show behavior consistent with mental accounting when it comes to spending that time, by budgeting time during the week for difficult activities like going to to the gym, studying, and going to class, while saving weekends for relaxation and other recreation. 
-
 ### Present Bias
  
 Individuals experiencing a dilemma with ramifications that unfold over time (known as intertemporal choice) may engage in temporal discounting, where they place disproportionately less value on future rewards, even if they are greater than present rewards. This is known as *present bias*. For example, someone may choose to use their disposable income to consume goods (like buying a car), instead of putting it in a savings account, even though investing will ultimately net them more utility in the long run. In this thesis, I aim to interpret present bias in how individuals utilize their time. For many people, going to the gym is hard and its payoffs take time. If someone only has two days a week to relax, they might skip the gym on the weekend and spend their time relaxing, because the immediate gratification of relaxing is worth more to them than the future benefit of a consistent gym routine. This is a significant departure from the standard economic model's prediction, which interprets this behavior as irrational.
-
-### Loss Aversion
-
-Loss aversion stems from an agent's perceived utility from losses and gains measured relative to a reference point, where a reference point is a baseline or standard of comparison. In their 1991 paper, Tversky et. al state, "the function is steeper in the negative than in the positive domain; losses loom larger than corresponding gain." The function in question represents the utility of an action relative to a reference point. In other words, an agent will suffer a larger utility loss from losing `$`5 than they will gain from receiving `$`10. In the context of this thesis, suppose a student spends their Saturdays relaxing, as it's their only free day of the week. The concept of this time being set aside for relaxation becomes the student's reference point, and the utility of anything they have to do that deviates from relaxation will be compared to the lost utility of relaxing. This concept is represented by the following formula:
-
-$$ 
-v(x) =
-\begin{cases}
-  x,                    & x \ge 0,\\
-  -\lambda\,(-x),       & x < 0.
-\end{cases}
-$$
-
-Here, $x$ represents the gain ($x>0$) or loss ($x < 0$) of utility relative to the reference point. $\lambda$ represents the loss aversion coefficient, which acts as a multiplier for negative utility. For a student relaxing on the weekend, $x$ represents the utility difference between relaxing and going to the gym (or doing anything else that represents hard work). If $\lambda > 1$ then the student is loss averse and decides to relax instead of going to the gym. I find the opposite situation to be true during the week, where the reference point is classes, homework, and other responsibilities. During the week, relaxing becomes the loss and hard work like studying and the gym provide more utility. 
 
 # Data
 
