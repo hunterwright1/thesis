@@ -67,7 +67,7 @@ Behavioral economics is the study of how people in the real world approach decis
 
 ### The Standard Economic Model
 
-The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. In this case, the agent's constraint is the number of hours in a day, and with so few hours of free time in a weekday, we would not expect a rational agent to prioritize going to the gym. In other words, if this model reflected reality, we would observe a decrease in gym attendance during the week where the opportunity cost of an hour is higher, and increase in gym attendance on the weekend where the opportunity cost of an hour is cheaper. However, as Figure 1 shows, this tends not to be the case.
+The standard economic model predicts that all individuals are rational agents that maximize their utility subject to a constraint. Because I aim to analyze how students utilize their time, in this thesis, the agent's constraint is the number of hours in a day. If this agent was behaving rationally, they would plan and schedule times to go to the gym every week and stick to that plan throughout the year. If students at the SRC behaved this way, we would expect gym attendance to be consistent across all time periods, with a possible slight uptick on weekends when students have more time to go. However, as Figure 1 shows, this tends not to be the case.
 
 ```{r average fall 2024 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
 
