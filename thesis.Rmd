@@ -1,5 +1,6 @@
 ---
-title: "University of Oregon Gym Attendance: An Analysis of Student Behavior and Decision Making"
+title: 'University of Oregon Gym Attendance: An Analysis of Student Behavior and Decision
+  Making'
 author: "Hunter Wright"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -25,22 +26,11 @@ members <- members %>%
 
 members$date <- as.Date(members$date)
 
-members <- members %>%
-  mutate(closed = ifelse(students < 10, 1, 0))
-
 members_open <- members %>%
+  mutate(closed = ifelse(students < 10, 1, 0)) %>%
   filter(closed == 0) %>%
+  filter(quarter != "Break") %>%
   rename(term_week = week)
-
-count <- count %>%
-  mutate(day = fct_relevel(day, "Monday")) %>%
-  mutate(month = fct_relevel(month, "October")) %>%
-  mutate(quarter = fct_relevel(quarter, "Fall"))
-
-count$date <- as.Date(count$date)
-
-count_open <- count %>%
-  filter(closed == 0)
 ```
 
 # Introduction
@@ -57,7 +47,7 @@ count_open <- count %>%
 The rest of this thesis is organized into the following sections. Section 2 provides a brief literature review consisting of important papers in behavioral economics and related papers studying gym attendance. Section 3 discusses standard model economics, habit formation, and present bias. Section 4 describes the SRC and provides insights into the data used for my analysis. Section 5 and 6 describe the methods of the analysis and its results, respectively. Finally, the last section contains a brief conclusion discussing my findings.
 
 
-### Literature Review
+# Literature Review
 
 The primary literature relating to this thesis is Prospect Theory: An Analysis of Decision Under Risk, by Kahneman and Tversky (1979). This paper serves as a critique of expected utility theory by providing evidence that humans do not act completely rationally when presented with decisions that involve risk. While Kahneman and Tversky were focused mainly on monetary decisions under risk, I focus on the scarcity of time as another form of currency, where students risk the development of their human capital based on how they utilize limited time. The concept of mental accounting was first developed by Richard Thaler in his 1985 paper "Mental Accounting and Consumer Choice." Thaler introduces a theory that explains how individuals make irrational decisions when spending money because they don't treat money as fungible. Present bias was formally introduced in "Doing It Now or Later" by O'Donoghue and Rabin (1999).  The authors described "the human tendency to grab immediate rewards and to avoid immediate costs in a way that our 'long-run selves' do not appreciate." They called this tendency **present-biased preferences**, and partially attributed it to impatience. The concept of loss aversion was first introduced in Kahneman and Tversky's "Prospect Theory," but further refined in "Loss Aversion in Riskless Choice: A Reference-Dependent Model" by Tversky et. al (1991). Other similar literature related to gym attendance focus mainly on individuals' tendency to overestimate their future attendance. DellaVigna and Malmendier (2006) found that people who bought monthly memberships tended to go infrequently and indirectly pay more per visit than if they had bought a 10 day pass. They also found that monthly membership customers were more likely than yearly members to continue their membership for longer than a year, despite paying premiums for the option to cancel month by month. Acland and Levy (2015) reported that subjects in their experiment exhibited "evidence of partial naiveté with respect to present bias" when making projections about their future gym attendance. The subjects similarly overestimated their future attendance. 
 
@@ -71,7 +61,7 @@ The standard economic model predicts that all individuals are rational agents th
 
 ```{r average fall 2024 attendance plot, fig.height=3, fig.width=5, fig.align = 'center'}
 
-members %>%
+.att_plot <- members %>%
   mutate(year = year(date)) %>%
   filter(year == 2024,
          quarter == "Fall") %>%
@@ -98,6 +88,8 @@ members %>%
     axis.text = element_text(size = 7)
   )
 
+.att_plot
+
 ```
 
 ### Present Bias
@@ -106,7 +98,14 @@ Individuals experiencing a dilemma with ramifications that unfold over time (kno
 
 # Data
 
-The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 82% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19. A day was marked as 'closed' if no students entered the gym on a particular day.
+### Setting
+
+The University of Oregon is the state of Oregon's flagship public university. As a Division I school featuring more than 30 club and intramural sports, fitness is a large part of many student's lives. Whether they're rooting for the Ducks, participating in organized sports, or simply exercising on campus, students at UO are incredibly active.
+The University of Oregon’s Student Recreation Center is the primary facility on campus for students to engage in physical activities like weightlifting, swimming, basketball, and other indoor sports. Students, faculty, staff, and community members alike enjoy more than 36,000 square feet of strength training space, a 12-lane swimming pool, and nearly two dozen courts and gymnasiums, among many other amenities. During normal hours, the SRC is open from 6am - 11pm on weekdays and 9am-9pm on weekends. 
+
+### Data Collection
+
+Almost every person that enters the SRC must scan their ID through one of the turnstiles. These machines record the time and date of every person who walks through. Table 1 shows the summary statistics for daily entries between January 2015 and December 2024 for days where the SRC is open. This accounts for about 82% of the days in the data, which includes a period between March 18th, 2020 and September 17th, 2020 where the SRC closed due to COVID-19. A day was marked as 'closed' if no students entered the gym on a particular day.
 
 ```{r all students summary statistics table}
 
@@ -152,10 +151,16 @@ Table 2 shows the average daily proportion of members. Students make up the vast
   mutate(`Average Daily Share` = percent(`Average Daily Share`, accuracy = 0.1)) %>%
   arrange(desc(`Average Daily Share`))
 
+.mem_sumstats$`Membership Type` <- factor(.mem_sumstats$`Membership Type`, 
+    levels = c("Student", "Off-Term Student", "Faculty/Staff", "Community Member", 
+               "Alumni", "Nonmember", "PE Staff", "Other"))
+
+.mem_sumstats <- .mem_sumstats %>% arrange(`Membership Type`)
+
 
 # need to fix row separations
 kable(.mem_sumstats, caption = "Average Daily Entrances by Member") %>%
-  kable_styling(full_width = FALSE) %>%
+  kable_styling(full_width = FALSE, latex_options = c("hold_position")) %>%
   row_spec(0:8, align = "c")
 ```
 
@@ -167,14 +172,14 @@ To analyze both short and long‑run attendance dynamics, I regress daily studen
 
 $$
 \hat{\text{attendance}}_{t} = \beta_0 + \beta_1\,\text{attendance}_{t-1} \;+\; \sum_{d=1}^{6}\gamma_d\,\text{Day}_{d,t} \;+\;\beta_2\,\text{Week}_t
-\;+\; \sum_{q=2}^{4}\theta_q\,\text{Quarter}_{q,t}\;+\; \beta_3\,\text{DayAfterClosed}_t
+\;+\; \sum_{q=2}^{4}\theta_q\,\text{Quarter}_{q,t}
 $$ 
 
 $$
-\;+\; \beta_4\,\text{DeadWeek}_t \;+\; \beta_5\,\text{FinalsWeek}_t \;+\; \varepsilon_t
+\;+\; \beta_3\,\text{DayAfterClosed}_t\;+\; \beta_4\,\text{DeadWeek}_t \;+\; \beta_5\,\text{FinalsWeek}_t \;+\; \varepsilon_t
 $$
   The first term in the regression is $\beta_0$, the intercept term. This represents the model’s expected attendance when all other coefficients are equal to zero. $\beta_1$ is the lag term, where t is a subscript for the calendar-day. The coefficient here is a decimal representing what proportion of the previous day's “surprise” or deviation from the expected value is present in today's count. The next term represents day-of-the-week fixed effects: Each day's difference in expected attendance relative to Monday. $\beta_2$ describes the change in students as the quarter progresses. The coefficient represents the change in students on a weekly basis. Next, quarter fixed effects describe the average difference in attendance across different quarters, or terms. There are four quarters, Summer, Fall, Winter, and Spring, and a catch-all, Break, which is active during days that are not a part of any quarter. Fall is the baseline quarter that the other four are compared to. $\beta_3$, $\beta_4$, and $\beta_5$, are all binary variables describing if the SRC was closed the previous day, if it’s dead week (the week before finals week), or finals week respectively. All are equal to one if the requirement is met, and zero if not.
-  Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 889.97, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
+  Because I'm working with time series data, I conducted several tests to ensure unbiased estimates. The daily attendance counts displayed both conditional heteroskedasticity (Breusch-Pagan $\chi^2$ = 186.74, p<0.01) and positive serial correlation (Durbin-Watson = 1.69, p<0.01). To maintain sound standard error measures, I report Newey–West heteroskedasticity and autocorrelation‑consistent (HAC) standard errors with a seven day bandwidth. Additionally, an autocorrelation function (ACF) test revealed strong AR(1) persistence, necessitating the addition of a lagged dependent variable.
 
 # Results
 ```{r first regression}
@@ -182,6 +187,10 @@ options(scipen = 2)
 
 # level regressions
 .model0  <- lm(all_students ~ day + term_week + quarter + day_after_closed + finals_week + dead_week, members_open)
+
+bptest(.model0)
+dwtest(.model0, alt="less")
+
 
 .model1 <- lm(all_students ~ lag(all_students) + day + term_week + quarter + day_after_closed + finals_week + dead_week, members_open)
 
@@ -202,13 +211,13 @@ members_open <- members_open %>%
 
 .s1Variables <- c("Constant", "dayTuesday", "dayWednesday", "dayThursday", "dayFriday",  "daySaturday",  "daySunday", "^lag")
 
-.s2Variables <- c("Constant", "term_week", "quarterBreak", "quarterWinter", "quarterSpring", "quarterSummer", "dead_week", "finals_week")
+.s2Variables <- c("Constant", "term_week", "quarterWinter", "quarterSpring", "quarterSummer", "dead_week", "finals_week")
 ```
-         
 Both tables represent two sets of predictors from the same model. The first one reports day-of-the-week fixed effects with and without a one day lagged variable, representing short term trends in attendance. The second table reports week of the term and quarter fixed effects, the dead week, and finals week dummies, with and without a one day lagged variable. This represents attendance trends over a longer term, as each quarter of the academic year at the University of Oregon is 11 weeks, or 12 in the summer.
 
 ```{r day by day regression stargazer, results = "asis"}
 cat("\\begin{center}\n")
+cat("\\text{Table 3: Short Term Trends}\\\\\n")
 stargazer(.model0,        
           .model1,
           .model0_log,
@@ -228,7 +237,8 @@ stargazer(.model0,
           title = "Intraweek Effects",
           header = FALSE,
           no.space = FALSE,
-          float = FALSE)
+          float = FALSE,
+          font.size = "footnotesize")
 cat("\\end{center}\n")
 ```
 
@@ -246,16 +256,24 @@ The lagless model shows a strong statistically significant negative drop in atte
 ggplot(.bar, aes(term, estimate)) +
   geom_col(fill = "black", width = .4) + 
   labs(x = NULL,
-       y = "Student Attendance Estimates",
-       title = "Figure 2: Day-of-the-Week Effects") +
+       y = "Student Attendance Estimates") +
   theme_bw() +
-  theme(axis.text.x = element_text(size = 10))
+  theme(axis.text.x = element_text(size = 10)) +
+  scale_x_discrete(labels = c(
+    "Tuesday" = "Tue",
+    "Wednesday" = "Wed",
+    "Thursday" = "Thu",
+    "Friday" = "Fri",
+    "Saturday" = "Sat",
+    "Sunday" = "Sun"
+  ))
 ```
 
-These coefficients reinforce the idea that college students are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, students are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable (the weekend). 
+These coefficients reinforce the idea that college students are not acting as rational agents when deciding how to spend their time. With a consistently decreasing attendance as the week progresses, students are going when their time is the most valuable (the beginning of the week), and going less as their time becomes less valuable (the weekend).
 
 ```{r quarter regression stargazer, results = "asis"}
-cat("\\begin{center}\n") 
+cat("\\begin{center}\n")
+cat("\\text{Table 4: Long Term Trends}\\\\\n")
 stargazer(.model0, .model1, .model0_log, .model1_log,
           type = "latex",
           order = .s2Variables,
@@ -265,7 +283,7 @@ stargazer(.model0, .model1, .model0_log, .model1_log,
           digits = 3,
           dep.var.labels = c("Student Attendance", "Log Student Attendance"),
           column.labels = c("No Lag", "With Lag", "No Lag", "With Lag"),
-          covariate.labels = c("Intercept", "Week of the Term", "Break", "Winter", "Spring", "Summer", "Week Before Finals", "Finals Week"),
+          covariate.labels = c("Intercept", "Week of the Term", "Winter", "Spring", "Summer", "Week Before Finals", "Finals Week"),
           title = "Long Term Trends",
           header = FALSE,
           no.space = FALSE,
@@ -280,28 +298,7 @@ Long term trends, while still mostly significant, are much weaker in comparison 
 
 
 
-```{r Attendance Plot, fig.align='center', fig.height=3, fig.width=5, include=FALSE}
-.plot2024 <- count %>%
-  mutate(year = year(date)) %>%
-  filter(year == 2024) %>%
-  mutate(week = floor_date(date, "week", week_start = 1)) %>%
-  group_by(week) %>% 
-  summarise(avg_total = mean(total, na.rm = TRUE), .groups = "drop") %>% 
-  ggplot(aes(week, avg_total)) +
-  geom_line() +
-    labs(x = NULL,
-         y = "Average Daily Visits",
-         title = "Weekly Average Gym Attendance – 2024") +
-  theme_bw() +
-  theme(
-    plot.title = element_text(size = 10, face = "bold"),
-    plot.subtitle = element_text(size = 7),
-    axis.title = element_text(size = 10),
-    axis.text = element_text(size = 7)
-  )
 
-.plot2024
-```
 
 # Citations
 
@@ -320,5 +317,7 @@ Tversky, Amos, & Daniel Kahneman. (1991). Loss Aversion in Riskless Choice: A Re
 “The 2024 HFA Global Report.” Health & Fitness Association, https://www.healthandfitness.org/publications/the-2024-hfa-global-report/.
 
 Bradley, Jordyn. “Is Your Gym Overflowing? A New Study Shows Gym Use Is Nearly Double Pre-Pandemic Levels and Gen Z Is Driving the Trend.” Fortune Well, https://fortune.com/well/article/gym-use-increase-pandemic-gen-z/.
+
+https://admissions.uoregon.edu/uo-facts
 
 
